@@ -17,14 +17,12 @@ import RealmSwift
 
 class Utility : NSObject{
   
-   var bridge: RCTBridge!  // this is synthesized. This is returning nil; hence we are passing bridge instace from view
-
   
-  func convertHexToInt(data:NSData!) -> Array<Double> {
-    print("In getBytesArray\(data)")
+  func convertHexToInt(data:NSData!) -> Dictionary<String,Double>{
+    
+    NSLog("Data from BLE: \(data)")
   
-  
-    var temperatures = [Double]()
+    var breathReadings = [String: Double]()
     
     let dataString = String(data: data, encoding: NSUTF8StringEncoding)
 
@@ -34,84 +32,83 @@ class Utility : NSObject{
  //   Data String: Optional("-2315635353535353535"
     
     
-    print("Data String: \(dataString)")
-    print("End Index: \(dataString!.endIndex)")
+    NSLog("Data String: \(dataString)")
+    NSLog("End Index: \(dataString!.endIndex)")
     
     if (data != nil) {
       
       var timeString = String (abs(Int(dataString![dataString!.startIndex ..< dataString!.endIndex.advancedBy(-14)])!))
       
       timeString = "0." + timeString
-      print("Time:\(timeString)")
+      NSLog("Time:\(timeString)")
 
-       let miliSeconds =  Double(timeString)
+      let miliSeconds =  Double(timeString)
 
-      print("Mili Seconds:\(miliSeconds)")
+      NSLog("Mili Seconds:\(miliSeconds)")
       
       let readingDateTime = (NSDate().timeIntervalSince1970 + miliSeconds!)
       
-      temperatures.append(readingDateTime)
+      breathReadings["readingDateTime"] = readingDateTime
+     
       
       let tempString = dataString![dataString!.startIndex.advancedBy(dataString!.utf8.count - 14) ..< dataString!.endIndex ]
       
-      let leftMiddle = tempString[tempString.startIndex ..< tempString.endIndex.advancedBy(-12) ]
+      let leftTop = tempString[tempString.startIndex ..< tempString.endIndex.advancedBy(-12) ]
+      breathReadings["leftTop"] = Double(leftTop)
       
-      temperatures.append(Double(leftMiddle)!)
+      let centerTop = tempString[tempString.startIndex.advancedBy(2) ..< tempString.endIndex.advancedBy(-10) ]
       
-      let rightMiddle = tempString[tempString.startIndex.advancedBy(2) ..< tempString.endIndex.advancedBy(-10) ]
+      breathReadings["centerTop"] = Double(centerTop)
       
-      temperatures.append(Double(rightMiddle)!)
+      let rightTop = tempString[tempString.startIndex.advancedBy(4) ..< tempString.endIndex.advancedBy(-8) ]
       
-      let leftBottom = tempString[tempString.startIndex.advancedBy(4) ..< tempString.endIndex.advancedBy(-8) ]
+      breathReadings["rightTop"] = Double(rightTop)
       
-      temperatures.append(Double(leftBottom)!)
+      let leftBottom = tempString[tempString.startIndex.advancedBy(6) ..< tempString.endIndex.advancedBy(-6) ]
       
-      let rightBottom = tempString[tempString.startIndex.advancedBy(6) ..< tempString.endIndex.advancedBy(-6) ]
+      breathReadings["leftBottom"] = Double(leftBottom)
       
-      temperatures.append(Double(rightBottom)!)
+      let leftMiddle = tempString[tempString.startIndex.advancedBy(8) ..< tempString.endIndex.advancedBy(-4)]
       
-      let leftTop = tempString[tempString.startIndex.advancedBy(8) ..< tempString.endIndex.advancedBy(-4)]
+      breathReadings["leftMiddle"] = Double(leftMiddle)
       
-      temperatures.append(Double(leftTop)!)
+      let rightMiddle = tempString[tempString.startIndex.advancedBy(10) ..< tempString.endIndex.advancedBy(-2)]
       
-      let rightTop = tempString[tempString.startIndex.advancedBy(10) ..< tempString.endIndex.advancedBy(-2)]
+      breathReadings["rightMiddle"] = Double(rightMiddle)
       
-      temperatures.append(Double(rightTop)!)
+      let rightBottom = tempString[tempString.startIndex.advancedBy(12) ..< tempString.endIndex]
       
-      let centerTop = tempString[tempString.startIndex.advancedBy(12) ..< tempString.endIndex]
-      
-      temperatures.append(Double(centerTop)!)
+      breathReadings["rightBottom"] = Double(rightBottom)
       
       
-      print("Temperatures:\(temperatures)")
+      NSLog("Temperatures:\(breathReadings)")
     
-      return temperatures
+      return breathReadings
       
     }else{
-     return [Double]()
-    
+     return breathReadings
     }
 
   }
   
   
-  func addReadingsInRealm(readings:Array<Double>!){
+  func addReadingsInRealm(readings:Dictionary<String,Double>){
     
    
     // Get the default Realm
     let realm = try! Realm()
-    //print("Realm Path \(realm.path)")
+    NSLog("Realm Path \(realm.configuration.fileURL)")
     
     let newReading = BreathReadings()
     
-    newReading.readingDateTime = readings[0]
-    newReading.leftMiddle = readings[1]
-    newReading.rightMiddle = readings[2]
-    newReading.leftBottom = readings[3]
-    newReading.rightBottom = readings[4]
-    newReading.leftBottom = readings[5]
-    newReading.rightTop = readings[6]
-    newReading.centerTop = readings[7]
+    newReading.readingDateTime = readings["readingDateTime"]!
+    newReading.leftTop = readings["leftTop"]!
+    newReading.centerTop = readings["centerTop"]!
+    newReading.rightTop = readings["rightTop"]!
+    newReading.leftBottom = readings["leftBottom"]!
+    newReading.leftMiddle = readings["leftMiddle"]!
+    newReading.rightMiddle = readings["rightMiddle"]!
+    newReading.rightBottom = readings["rightBottom"]!
     
     try! realm.write {
       realm.add(newReading)
@@ -122,28 +119,11 @@ class Utility : NSObject{
   
   // Ref: http://moduscreate.com/swift-modules-for-react-native/
 
-  @objc func getLiveBreathReadings(readings:Array<Double>! , appBridge: RCTBridge ) ->  Void {
-     print("Live Breath Reading:\(readings)")
-   // NSLog("Bridge: %@", appBridge);
-    let liveReading = [
-      "readingDateTime": readings[0],
-      "leftMiddle": readings[1],
-      "rightMiddle": readings[2],
-      "leftBottom": readings[3],
-      "rightBottom": readings[4],
-      "leftTop": readings[5],
-      "rightTop": readings[6],
-      "centerTop": readings[7]
-
-    ]
+  @objc func getLiveBreathReadings(readings:Dictionary<String,Double> , appBridge: RCTBridge ) ->  Void {
+  
     
-   // liveDataCallback([liveReading])
-    
-    // Call event dispatcher 'getLiveBreathReadings'
-    appBridge.eventDispatcher.sendAppEventWithName("getLiveBreathReadings", body: liveReading)
-    
-    let leftNostrilReading = (readings[1]+readings[3]+readings[5])/3.0
-    let rightNostrilReading = (readings[2]+readings[4]+readings[6])/3.0
+    let leftNostrilReading = (readings["leftTop"]!+readings["leftBottom"]!+readings["leftMiddle"]!)/3.0
+    let rightNostrilReading = (readings["rightTop"]!+readings["rightBottom"]!+readings["rightMiddle"]!)/3.0
     
     let avgReading = [
       "leftNostril": leftNostrilReading,
@@ -153,7 +133,7 @@ class Utility : NSObject{
     print("Avg Breath Reading:\(leftNostrilReading)")
    
     
-    // Call event dispatcher 'getLiveBreathReadings'
+    // Call event dispatcher 'getAvgBreathReadings'
     appBridge.eventDispatcher.sendAppEventWithName("getAvgBreathReadings", body: avgReading)
 
     

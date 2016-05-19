@@ -27,3 +27,12 @@ public class BreathReadings: Object {
 
 
 
+/*
+ 
+  Make this the main class to do data processing.
+ 
+   - Store data in DB
+   - 
+ 
+ 
+ */

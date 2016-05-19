@@ -9,7 +9,6 @@
 
 #import "AppDelegate.h"
 #import "RCTRootView.h"
-#import "BreathSensorBLEManager.h"
 #import "iOSV1-swift.h"
 #import "RCTBridge.h"
 

@@ -163,7 +163,7 @@ import RealmSwift
       let data = characteristic.value as NSData!
       let readings = Utility().convertHexToInt(data)
       if readings.count > 0 {
-       // Utility().addReadingsInRealm(readings)
+        Utility().addReadingsInRealm(readings)
         Utility().getLiveBreathReadings(readings, appBridge: appBridge);
       }
     }
