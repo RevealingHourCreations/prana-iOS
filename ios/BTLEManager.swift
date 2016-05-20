@@ -161,11 +161,7 @@ import RealmSwift
    // print(" didUpdateValueForCharacteristic Updated \(peripheral) : \(characteristic)")
     if((characteristic.value) != nil){
       let data = characteristic.value as NSData!
-      let readings = Utility().convertHexToInt(data)
-      if readings.count > 0 {
-        Utility().addReadingsInRealm(readings)
-        Utility().getLiveBreathReadings(readings, appBridge: appBridge);
-      }
+      BreathReadings().processBreathData(data,appBridge: appBridge)
     }
   }
 

@@ -37,22 +37,22 @@ var BreathChart = React.createClass({
 
      subscription = NativeAppEventEmitter.addListener(
                        'getAvgBreathReadings',
-                         (avgReading) => {
+                         (breathData) => {
 
                                 console.log("avgReading")
-                                console.log(avgReading.leftNostril)
-                                console.log(avgReading.rightNostril)
+                                console.log(breathData.leftNostril)
+                                console.log(breathData.rightNostril)
                                 
                                 leftNostrilData = this.state.leftNostrilData
                                 rightNostrilData = this.state.rightNostrilData
                                 labelsData = this.state.labelsData
 
-                               leftNostrilData.push(parseInt(avgReading.leftNostril))
-                               rightNostrilData.push(parseInt(avgReading.rightNostril))
+                               leftNostrilData.push(parseInt(breathData.leftNostril))
+                               rightNostrilData.push(parseInt(breathData.rightNostril))
                                labelsData.push("i")
                                 
                                 // Give some time for chart loading
-                                sleepFor(1500)
+                                sleepFor(1000)
                                                             
                                 this.setState({
                                                leftNostrilData: leftNostrilData ,

@@ -20,7 +20,7 @@ class Utility : NSObject{
   
   func convertHexToInt(data:NSData!) -> Dictionary<String,Double>{
     
-    NSLog("Data from BLE: \(data)")
+    // NSLog("Data from BLE: \(data)")
   
     var breathReadings = [String: Double]()
     
@@ -32,19 +32,19 @@ class Utility : NSObject{
  //   Data String: Optional("-2315635353535353535"
     
     
-    NSLog("Data String: \(dataString)")
-    NSLog("End Index: \(dataString!.endIndex)")
+   // NSLog("Data String: \(dataString)")
+   // NSLog("End Index: \(dataString!.endIndex)")
     
     if (data != nil) {
       
       var timeString = String (abs(Int(dataString![dataString!.startIndex ..< dataString!.endIndex.advancedBy(-14)])!))
       
       timeString = "0." + timeString
-      NSLog("Time:\(timeString)")
+     // NSLog("Time:\(timeString)")
 
       let miliSeconds =  Double(timeString)
 
-      NSLog("Mili Seconds:\(miliSeconds)")
+      // NSLog("Mili Seconds:\(miliSeconds)")
       
       let readingDateTime = (NSDate().timeIntervalSince1970 + miliSeconds!)
       
@@ -81,66 +81,45 @@ class Utility : NSObject{
       breathReadings["rightBottom"] = Double(rightBottom)
       
       
-      NSLog("Temperatures:\(breathReadings)")
+     // NSLog("Temperatures:\(breathReadings)")
     
       return breathReadings
       
     }else{
      return breathReadings
     }
-
-  }
-  
-  
-  func addReadingsInRealm(readings:Dictionary<String,Double>){
-    
-   
-    // Get the default Realm
-    let realm = try! Realm()
-    NSLog("Realm Path \(realm.configuration.fileURL)")
-    
-    let newReading = BreathReadings()
-    
-    newReading.readingDateTime = readings["readingDateTime"]!
-    newReading.leftTop = readings["leftTop"]!
-    newReading.centerTop = readings["centerTop"]!
-    newReading.rightTop = readings["rightTop"]!
-    newReading.leftBottom = readings["leftBottom"]!
-    newReading.leftMiddle = readings["leftMiddle"]!
-    newReading.rightMiddle = readings["rightMiddle"]!
-    newReading.rightBottom = readings["rightBottom"]!
-    
-    try! realm.write {
-      realm.add(newReading)
-    }
     
   }
-  
   
   // Ref: http://moduscreate.com/swift-modules-for-react-native/
-
-  @objc func getLiveBreathReadings(readings:Dictionary<String,Double> , appBridge: RCTBridge ) ->  Void {
   
+  @objc func getLiveBreathReadings(leftNostrilReading:Double,
+                                   rightNostrilReading:Double,
+                                   activeNadi:String,
+                                   breathExalationDirection:String,
+                                   activeTatva:String,
+                                   appBridge: RCTBridge ) ->  Void {
     
-    let leftNostrilReading = (readings["leftTop"]!+readings["leftBottom"]!+readings["leftMiddle"]!)/3.0
-    let rightNostrilReading = (readings["rightTop"]!+readings["rightBottom"]!+readings["rightMiddle"]!)/3.0
     
-    let avgReading = [
+    let breathData = [
       "leftNostril": leftNostrilReading,
-      "rightNostril": rightNostrilReading
+      "rightNostril": rightNostrilReading,
+      "activenadi":activeNadi,
+      "breathExalationDirection": breathExalationDirection,
+      "activeTatva": activeTatva
     ]
     
-    print("Avg Breath Reading:\(leftNostrilReading)")
-   
+    NSLog("Breath Data:\(breathData)")
     
     // Call event dispatcher 'getAvgBreathReadings'
-    appBridge.eventDispatcher.sendAppEventWithName("getAvgBreathReadings", body: avgReading)
-
+    appBridge.eventDispatcher.sendAppEventWithName("getBreathData", body: breathData)
+    
     
   }
   
+
   
   
-}
+  }
 
 
