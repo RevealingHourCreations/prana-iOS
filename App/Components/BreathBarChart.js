@@ -1,12 +1,13 @@
 
 var React  = require('react-native');
-var { LineChart } = require('react-native-ios-charts');
+var { BarChart } = require('react-native-ios-charts');
 
 var {
    
   View,
   StyleSheet,
-  NativeAppEventEmitter
+  NativeAppEventEmitter,
+  Text
 } = React;
 
 // Import Swift Class which is exported to ReactNative.
@@ -25,7 +26,7 @@ function sleepFor( sleepDuration ){
 }
 
 
-var BreathChart = React.createClass({
+var BreathBarChart = React.createClass({
 
 
 // Function to load live data from BLE
@@ -36,12 +37,12 @@ var BreathChart = React.createClass({
 // Event Listener receving live breath data 
 
      subscription = NativeAppEventEmitter.addListener(
-                       'getAvgBreathReadings',
+                       'getBreathData',
                          (breathData) => {
 
-                                console.log("avgReading")
-                                console.log(breathData.leftNostril)
-                                console.log(breathData.rightNostril)
+                                //console.log("avgReading")
+                                //console.log(breathData.leftNostril)
+                                //console.log(breathData.rightNostril)
                                 
                                 leftNostrilData = this.state.leftNostrilData
                                 rightNostrilData = this.state.rightNostrilData
@@ -49,15 +50,19 @@ var BreathChart = React.createClass({
 
                                leftNostrilData.push(parseInt(breathData.leftNostril))
                                rightNostrilData.push(parseInt(breathData.rightNostril))
+
                                labelsData.push("i")
                                 
                                 // Give some time for chart loading
-                                sleepFor(1000)
+                                sleepFor(100)
                                                             
                                 this.setState({
-                                               leftNostrilData: leftNostrilData ,
-                                               rightNostrilData: rightNostrilData,  
-                                               labelsData: labelsData,       
+                                               leftNostrilData:     leftNostrilData ,
+                                               rightNostrilData:    rightNostrilData,  
+                                               activeNadi:          breathData.activeNadi,
+                                               activeTatva:         breathData.activeTatva,
+                                               exhalationDirection: breathData.exhalationDirection,
+                                               labelsData:          labelsData,       
                                               })
  
 
@@ -73,6 +78,9 @@ var BreathChart = React.createClass({
         return{
           leftNostrilData: [30],
           rightNostrilData: [30],
+          activeNadi:  "",
+          activeTatva:  "",
+          exhalationDirection: "",
           labelsData: ["i"]
        };
 
@@ -92,20 +100,15 @@ var BreathChart = React.createClass({
     const config = {
       dataSets: [{
         values: this.state.leftNostrilData,
-        drawValues: true,
+        drawValues: false,
         colors: ['rgb(0,128,0)'],
-        label: 'Left Nostril',
-        drawCubic: true,
-        drawCircles: false,
-        lineWidth: 2
+        label: 'Left Nostril'
+       
       }, {
         values: this.state.rightNostrilData,
-        drawValues: true,
+        drawValues: false,
         colors: ['rgb(255,165,0)'],
-        label: 'Right Nostril',
-        drawCubic: true,
-        drawCircles: false,
-        lineWidth: 2
+        label: 'Right Nostril'
       }],
       backgroundColor: 'transparent',
       labels: this.state.labelsData,
@@ -124,13 +127,15 @@ var BreathChart = React.createClass({
         axisLineWidth: 0,
         drawLabels: false,
         position: 'bottom',
-        drawGridLines:  false
+        drawGridLines:  false,
+
       },
       leftAxis: {
         labelCount: 11,
         drawGridLines: true,
         setAxisMinValue: 30,
-        setAxisMaxValue: 50
+        setAxisMaxValue: 50,
+        spaceTop: 0.18
       },
       rightAxis: {
         enabled: false,
@@ -146,7 +151,12 @@ var BreathChart = React.createClass({
     return (
       
       <View style={styles.container}>
-        <LineChart config={config} style={styles.chart}/>
+        <BarChart config={config} style={styles.chart}/>
+        <Text style={styles.baseText}>
+            <Text style={styles.titleText} >
+                Active Nadi: {this.state.activeNadi + '\n\n'}
+           </Text> 
+       </Text>
       </View>
     );
   }
@@ -155,12 +165,29 @@ var BreathChart = React.createClass({
 
 
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    backgroundColor: 'white',
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
   chart: {
-    width: 400,
-    height: 500,
-    padding: 10
-  }
-})
+    flex: 1
+  },
+  baseText: {
+    fontFamily: 'Cochin',
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
 
-module.exports = BreathChart;
+
+
+module.exports = BreathBarChart;

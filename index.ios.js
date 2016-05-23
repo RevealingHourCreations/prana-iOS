@@ -3,8 +3,9 @@
  * 
  */
 
-var BreathChart = require('./App/Components/BreathChart');
+//var BreathChart = require('./App/Components/BreathChart');
 
+var BreathBarChart = require('./App/Components/BreathBarChart');
 
 import React, {
   AppRegistry,
@@ -26,8 +27,7 @@ class iOSV1 extends React.Component {
 
       initialRoute = {{
         title: 'Prana - Feel your Breath!',
-        component: BreathChart
-        
+        component: BreathBarChart
       }} />
     );
   }

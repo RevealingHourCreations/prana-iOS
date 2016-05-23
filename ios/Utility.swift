@@ -20,9 +20,10 @@ class Utility : NSObject{
   
   func convertHexToInt(data:NSData!) -> Dictionary<String,Double>{
     
-    // NSLog("Data from BLE: \(data)")
+     NSLog("Data from BLE: \(data)")
   
     var breathReadings = [String: Double]()
+    
     
     let dataString = String(data: data, encoding: NSUTF8StringEncoding)
 
@@ -32,7 +33,7 @@ class Utility : NSObject{
  //   Data String: Optional("-2315635353535353535"
     
     
-   // NSLog("Data String: \(dataString)")
+    NSLog("Data String: \(dataString)")
    // NSLog("End Index: \(dataString!.endIndex)")
     
     if (data != nil) {
@@ -40,11 +41,11 @@ class Utility : NSObject{
       var timeString = String (abs(Int(dataString![dataString!.startIndex ..< dataString!.endIndex.advancedBy(-14)])!))
       
       timeString = "0." + timeString
-     // NSLog("Time:\(timeString)")
+      NSLog("Time:\(timeString)")
 
       let miliSeconds =  Double(timeString)
 
-      // NSLog("Mili Seconds:\(miliSeconds)")
+      NSLog("Mili Seconds:\(miliSeconds)")
       
       let readingDateTime = (NSDate().timeIntervalSince1970 + miliSeconds!)
       
@@ -81,7 +82,7 @@ class Utility : NSObject{
       breathReadings["rightBottom"] = Double(rightBottom)
       
       
-     // NSLog("Temperatures:\(breathReadings)")
+      NSLog("Temperatures:\(breathReadings)")
     
       return breathReadings
       
@@ -96,7 +97,7 @@ class Utility : NSObject{
   @objc func getLiveBreathReadings(leftNostrilReading:Double,
                                    rightNostrilReading:Double,
                                    activeNadi:String,
-                                   breathExalationDirection:String,
+                                   exhalationDirection:String,
                                    activeTatva:String,
                                    appBridge: RCTBridge ) ->  Void {
     
@@ -104,14 +105,14 @@ class Utility : NSObject{
     let breathData = [
       "leftNostril": leftNostrilReading,
       "rightNostril": rightNostrilReading,
-      "activenadi":activeNadi,
-      "breathExalationDirection": breathExalationDirection,
+      "activeNadi":activeNadi,
+      "exhalationDirection": exhalationDirection,
       "activeTatva": activeTatva
     ]
     
     NSLog("Breath Data:\(breathData)")
     
-    // Call event dispatcher 'getAvgBreathReadings'
+    // Call event dispatcher 'getBreathData'
     appBridge.eventDispatcher.sendAppEventWithName("getBreathData", body: breathData)
     
     

@@ -21,7 +21,7 @@ public class BreathReadings: Object {
    dynamic var rightBottom : Double = 0
    dynamic var centerTop : Double = 0
    dynamic var activeNadi : String = ""
-   dynamic var breathExalationDirection : String = ""
+   dynamic var exhalationDirection : String = ""
    dynamic var activeTatva : String = ""
   
   
@@ -33,12 +33,12 @@ public class BreathReadings: Object {
     
     if (readings.count > 0) {
       
-      let (leftNostrilReading, rightNostrilReading, activeNadi,breathExalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings)
+      let (leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings)
     
       Utility().getLiveBreathReadings(leftNostrilReading,
                                       rightNostrilReading: rightNostrilReading,
                                       activeNadi: activeNadi,
-                                      breathExalationDirection: breathExalationDirection,
+                                      exhalationDirection: exhalationDirection,
                                       activeTatva: activeTatva,
                                       appBridge: appBridge);
     }
@@ -50,17 +50,17 @@ public class BreathReadings: Object {
     let leftNostrilReading = getLeftNostrilReading(readings)
     let rightNostrilReading = getRightNostrilReading(readings)
     let activeNadi = getActiveNadi(leftNostrilReading,rightNostrilReading: rightNostrilReading)
-    let breathExalationDirection = getBreathExalationDirection(readings)
-    let activeTatva = getActiveTatva(breathExalationDirection)
+    let exhalationDirection = getExhalationDirection(readings)
+    let activeTatva = getActiveTatva(exhalationDirection)
     
-    addReadingsInRealm(readings,activeNadi: activeNadi,breathExalationDirection: breathExalationDirection,activeTatva: activeTatva )
+    addReadingsInRealm(readings,activeNadi: activeNadi,exhalationDirection: exhalationDirection,activeTatva: activeTatva )
     
-    return (leftNostrilReading,rightNostrilReading, activeNadi,breathExalationDirection, activeTatva )
+    return (leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )
     
   }
   
   
-  func addReadingsInRealm(readings:Dictionary<String,Double>, activeNadi:String, breathExalationDirection:String, activeTatva:String ){
+  func addReadingsInRealm(readings:Dictionary<String,Double>, activeNadi:String, exhalationDirection:String, activeTatva:String ){
     
     // Get the default Realm
     let realm = try! Realm()
@@ -78,7 +78,7 @@ public class BreathReadings: Object {
     newReading.rightBottom = readings["rightBottom"]!
     
     newReading.activeNadi = activeNadi
-    newReading.breathExalationDirection = breathExalationDirection
+    newReading.exhalationDirection = exhalationDirection
     newReading.activeTatva = activeTatva
     
     try! realm.write {
@@ -101,13 +101,22 @@ public class BreathReadings: Object {
     
   }
   
+  
+  /* Placeholder to figure out active Nadi
+  
+   Considering body temperature is higher than outside temperature!
+ 
+ */
+  
   func getActiveNadi(leftNostrilReading: Double, rightNostrilReading: Double ) -> String {
     
-    if (leftNostrilReading == leftNostrilReading){
+    NSLog("Left Nostril\(leftNostrilReading) Right Nostril \(rightNostrilReading)")
+    
+    if (leftNostrilReading == rightNostrilReading){
       
       return "Sushumna"
       
-    }else if (leftNostrilReading > leftNostrilReading) {
+    }else if (leftNostrilReading > rightNostrilReading) {
       
       return "Ida"
       
@@ -119,42 +128,54 @@ public class BreathReadings: Object {
     
   }
   
-  func getBreathExalationDirection(readings:Dictionary<String,Double>) -> String {
+  /* Place holder for finding out direction of breath
+   
+      To identify direction we need to match the sensors temperature patterns with the patterns described in Swara Yoga and then do fine tuning before we conclude about direction. For that we need to play a lot with permutation combination of 
+   
+   1. Sensor Pattern matching with Element
+   2. Distance from nose to sensors.
+   3. 
+ 
+ */
+  
+  func getExhalationDirection(readings:Dictionary<String,Double>) -> String {
     
-    return("Upward")
+    return("Undefined")
     
   }
   
   
-  func getActiveTatva(breathExalationDirection:String) -> String {
+  /*
+  
+   Place holder for finding out Active element
+   
+   To identify Active Tatva we need 4 criteria - Direction, Duration for which direction is active, Length of breath, Sequence
+   For now we are using only Direction to find out active Tatva for POC.
+  
+  */
+  func getActiveTatva(exhalationDirection:String) -> String {
     
-    // To identify Active Tatva we need 4 criteria - Direction, Duration for which direction is active, Length of breath, Sequence
-    // For now we are using only Direction to find out active Tatva for POC.
+    var activeTatva = "Undefined"
     
-    var element = "Undefined"
-    
-    if (breathExalationDirection == "Upward"){
-      element = "Fire"
-    }else if (breathExalationDirection == "Downward"){
-      element = "Water"
-    }else if(breathExalationDirection == "Center"){
-      element =  "Earth"
-    }else if(breathExalationDirection == "Slanting"){
-      element =  "Air"
-    }else if(breathExalationDirection == "Slanting"){
-      element =  "Ether"
+    if (exhalationDirection == "Upward"){
+      activeTatva = "Fire"
+    }else if (exhalationDirection == "Downward"){
+      activeTatva = "Water"
+    }else if(exhalationDirection == "Center"){
+      activeTatva =  "Earth"
+    }else if(exhalationDirection == "Slanting"){
+      activeTatva =  "Air"
+    }else if(exhalationDirection == "Diffused"){
+      activeTatva =  "Ether"
     }
     
-    return element
+    return activeTatva
     
   }
 
-  
   
   
 }
-
-
 
 
 
