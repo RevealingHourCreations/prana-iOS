@@ -13,6 +13,7 @@ public class BreathReadings: Object {
   //var reading_datetime : NSInteger = 0
   
    dynamic var readingDateTime : Double = 0
+   dynamic var ambientTemp : Double = 0
    dynamic var leftMiddle : Double = 0
    dynamic var rightMiddle : Double = 0
    dynamic var leftTop : Double = 0
@@ -29,33 +30,51 @@ public class BreathReadings: Object {
   func processBreathData(data:NSData!,appBridge: RCTBridge!) -> Void {
   
     let readings = Utility().convertHexToInt(data)
-    NSLog("Readings count \(readings.count)")
+   // NSLog("Readings count \(readings.count)")
     
     if (readings.count > 0) {
       
-      let (leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings)
+      let (readingDateTime,leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings)
     
-      Utility().getLiveBreathReadings(leftNostrilReading,
+     
+      
+       
+       Utility().sendProcessedBreathDataReadings(readingDateTime,
+                                      leftNostrilReading:leftNostrilReading,
                                       rightNostrilReading: rightNostrilReading,
                                       activeNadi: activeNadi,
                                       exhalationDirection: exhalationDirection,
                                       activeTatva: activeTatva,
                                       appBridge: appBridge);
+ 
+      /*
+      
+      Utility().sendLiveBreathDataReadings(readings,                                        
+                                           activeNadi: activeNadi,
+                                           exhalationDirection: exhalationDirection,
+                                           activeTatva: activeTatva,
+                                           appBridge: appBridge);
+      */
+
     }
 
   }
   
-  func processBreathReadings(readings:Dictionary<String,Double>) -> (Double,Double,String,String,String) {
+  func processBreathReadings(readings:Dictionary<String,Double>) -> (Double,Double,Double,String,String,String) {
 
+    let readingDateTime = readings["readingDateTime"]
     let leftNostrilReading = getLeftNostrilReading(readings)
     let rightNostrilReading = getRightNostrilReading(readings)
     let activeNadi = getActiveNadi(leftNostrilReading,rightNostrilReading: rightNostrilReading)
     let exhalationDirection = getExhalationDirection(readings)
     let activeTatva = getActiveTatva(exhalationDirection)
     
-    addReadingsInRealm(readings,activeNadi: activeNadi,exhalationDirection: exhalationDirection,activeTatva: activeTatva )
+    addReadingsInRealm(readings,
+                       activeNadi: activeNadi,
+                       exhalationDirection: exhalationDirection,
+                       activeTatva: activeTatva )
     
-    return (leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )
+    return (readingDateTime!,leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )
     
   }
   
@@ -69,6 +88,7 @@ public class BreathReadings: Object {
     let newReading = BreathReadings()
     
     newReading.readingDateTime = readings["readingDateTime"]!
+    newReading.ambientTemp = readings["ambientTemp"]!
     newReading.leftTop = readings["leftTop"]!
     newReading.centerTop = readings["centerTop"]!
     newReading.rightTop = readings["rightTop"]!
@@ -90,14 +110,14 @@ public class BreathReadings: Object {
   
   func getLeftNostrilReading(readings:Dictionary<String,Double> ) -> Double {
     
-    return (readings["leftTop"]!+readings["leftBottom"]!+readings["leftMiddle"]!)/3.0
+    return Double(round(((readings["leftTop"]!+readings["leftBottom"]!+readings["leftMiddle"]!)/3.0)*100)/100)
     
   }
   
   
   func getRightNostrilReading(readings:Dictionary<String,Double> ) -> Double {
     
-    return(readings["rightTop"]!+readings["rightBottom"]!+readings["rightMiddle"]!)/3.0
+    return  Double(round(((readings["rightTop"]!+readings["rightBottom"]!+readings["rightMiddle"]!)/3.0)*100)/100)
     
   }
   
@@ -110,7 +130,7 @@ public class BreathReadings: Object {
   
   func getActiveNadi(leftNostrilReading: Double, rightNostrilReading: Double ) -> String {
     
-    NSLog("Left Nostril\(leftNostrilReading) Right Nostril \(rightNostrilReading)")
+    NSLog("Left Nostril: \(leftNostrilReading) Right Nostril: \(rightNostrilReading)")
     
     if (leftNostrilReading == rightNostrilReading){
       
@@ -140,10 +160,159 @@ public class BreathReadings: Object {
   
   func getExhalationDirection(readings:Dictionary<String,Double>) -> String {
     
-    return("Undefined")
+    let breathingPattern =  getBreathingPattern(readings)
+    let breathingDirection = getBrearthDirection(breathingPattern)
+    
+    return breathingDirection
     
   }
   
+  func getBrearthDirection(breathingPattern:Dictionary<String,Bool>) -> String {
+    
+    var brearthingDirection = "Undefined"
+    
+    let earthBrearthingPattern:[String:Bool] =  ["leftTop":      false,
+                                                 "centerTop":    true,
+                                                 "rightTop":     false,
+                                                 "leftBottom" :  false,
+                                                 "leftMiddle":   true,
+                                                 "rightMiddle":  true,
+                                                 "rightBottom":  false]
+
+
+
+    let waterBreathingPattern:[String:Bool] =  ["leftTop":      false,
+                                                "centerTop":    false,
+                                                "rightTop":     false,
+                                                "leftBottom" :  true,
+                                                "leftMiddle":   true,
+                                                "rightMiddle":  true,
+                                                "rightBottom":  false]
+
+    let fireBreathingPattern:[String:Bool] =   ["leftTop":      true,
+                                                "centerTop":    true,
+                                                "rightTop":     true,
+                                                "leftBottom" :  false,
+                                                "leftMiddle":   false,
+                                                "rightMiddle":  false,
+                                                "rightBottom":  false]
+
+    let airBreathingPattern:[String:Bool] =   [ "leftTop":      true,
+                                                "centerTop":    false,
+                                                "rightTop":     true,
+                                                "leftBottom" :  true,
+                                                "leftMiddle":   false,
+                                                "rightMiddle":  false,
+                                                "rightBottom":  true]
+    
+    let etherBreathingPattern:[String:Bool] = ["leftTop":      true,
+                                               "centerTop":    true,
+                                               "rightTop":     true,
+                                               "leftBottom" :  true,
+                                               "leftMiddle":   true,
+                                               "rightMiddle":  true,
+                                               "rightBottom":  true]
+
+  
+    let directionBreathingPatterns: [String: NSDictionary] =
+      
+                                                         ["Earth": earthBrearthingPattern,
+                                                          "Water": waterBreathingPattern,
+                                                          "Fire":  fireBreathingPattern,
+                                                          "Air":   airBreathingPattern,
+                                                          "Ether": etherBreathingPattern]
+    
+    
+   
+    NSLog("Breathing Pattern: \(breathingPattern)")
+    
+    for(direction,directionPattern) in directionBreathingPatterns {
+    
+      if (NSDictionary(dictionary: directionPattern).isEqualToDictionary(breathingPattern)){
+        
+        
+            NSLog("Found Matching breathing pattern")
+            NSLog("Direction:\(direction) - Direction Pattern\(directionPattern) - Breathing pattern\(breathingPattern)")
+        
+            brearthingDirection = direction
+        
+      }
+    }
+    
+    
+    return brearthingDirection
+  
+  }
+  
+  
+  /*
+ 
+    Assumption: Any sensor temperature which is NOT equal to base Temperature we are considering it as a reading to calculate direction of breath
+ 
+ 
+ */
+  
+  func getBreathingPattern(readings:Dictionary<String,Double>) -> Dictionary<String,Bool> {
+  
+        var breathPattern:[String:Bool] = ["leftTop":      false,
+                                           "centerTop":    false,
+                                           "rightTop":     false,
+                                           "leftBottom" :  false,
+                                           "leftMiddle":   false,
+                                           "rightMiddle":  false,
+                                           "rightBottom":  false]
+    
+    
+        let baseTemperature = readings["ambientTemp"]
+    
+        // NSLog("readings\(readings)")
+        
+        if(readings["leftTop"] != baseTemperature){
+          
+          breathPattern["leftTop"] = true
+          
+        }
+    
+        if (readings["centerTop"] != baseTemperature){
+          
+          breathPattern["centerTop"] = true
+          
+        }
+    
+       if (readings["rightTop"] != baseTemperature){
+          
+          breathPattern["rightTop"] = true
+          
+        }
+    
+        if (readings["leftBottom"] != baseTemperature){
+          
+          breathPattern["leftBottom"] = true
+          
+        }
+    
+       if (readings["leftMiddle"] != baseTemperature){
+          
+          breathPattern["leftMiddle"] = true
+          
+        }
+    
+       if (readings["rightMiddle"] != baseTemperature){
+          
+          breathPattern["rightMiddle"] = true
+          
+        }
+    
+       if (readings["rightBottom"] != baseTemperature){
+          
+          breathPattern["rightBottom"] = true
+          
+        }
+    
+      
+       return breathPattern;
+      
+  }
   
   /*
   
@@ -177,14 +346,3 @@ public class BreathReadings: Object {
   
 }
 
-
-
-/*
- 
-  Make this the main class to do data processing.
- 
-   - Store data in DB
-   - 
- 
- 
- */

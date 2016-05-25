@@ -7,6 +7,8 @@
 
 var BreathBarChart = require('./App/Components/BreathBarChart');
 
+//var AllSensorsBreathBarChart = require('./App/Components/AllSensorsBarChart');
+
 import React, {
   AppRegistry,
   Component,

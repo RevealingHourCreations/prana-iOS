@@ -50,8 +50,13 @@ var BreathBarChart = React.createClass({
 
                                leftNostrilData.push(parseInt(breathData.leftNostril))
                                rightNostrilData.push(parseInt(breathData.rightNostril))
+                               
+                               var d = new Date(0);
+                               d.setUTCSeconds(parseInt(breathData.readingDateTime),breathData.readingDateTime%1)
 
-                               labelsData.push("i")
+                               //console.log("readingDateTime")
+                               //console.log(d)
+                               labelsData.push(String(d))
                                 
                                 // Give some time for chart loading
                                 sleepFor(100)
@@ -101,18 +106,17 @@ var BreathBarChart = React.createClass({
       dataSets: [{
         values: this.state.leftNostrilData,
         drawValues: false,
-        colors: ['rgb(0,128,0)'],
+        colors: ['rgb(50,205,50)'],
         label: 'Left Nostril'
        
       }, {
         values: this.state.rightNostrilData,
         drawValues: false,
-        colors: ['rgb(255,165,0)'],
+        colors: ['rgb(255,127,80)'],
         label: 'Right Nostril'
       }],
       backgroundColor: 'transparent',
       labels: this.state.labelsData,
-     // minOffset: 20,
       setDescription: "Chart shows Temperature of Exaled air.",
       setTouchEnabled: true,  
       setScaleEnabled: true,      
@@ -154,7 +158,7 @@ var BreathBarChart = React.createClass({
         <BarChart config={config} style={styles.chart}/>
         <Text style={styles.baseText}>
             <Text style={styles.titleText} >
-                Active Nadi: {this.state.activeNadi + '\n\n'}
+                Active Nadi: <Text style={styles.nadiTitle}>  {this.state.activeNadi + '\n'} </Text>
            </Text> 
        </Text>
       </View>
@@ -172,7 +176,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: 'white',
     paddingTop: 40,
-    paddingBottom: 40,
+    paddingBottom: 2,
     paddingLeft: 10,
     paddingRight: 10
   },
@@ -185,7 +189,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
+    justifyContent: 'center',
+    color: "#696969"
   },
+  nadiTitle:{
+    color: '#1E90FF'
+  }
 });
 
 
