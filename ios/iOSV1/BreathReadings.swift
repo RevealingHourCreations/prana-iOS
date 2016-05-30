@@ -13,7 +13,6 @@ public class BreathReadings: Object {
   //var reading_datetime : NSInteger = 0
   
    dynamic var readingDateTime : Double = 0
-   dynamic var ambientTemp : Double = 0
    dynamic var leftMiddle : Double = 0
    dynamic var rightMiddle : Double = 0
    dynamic var leftTop : Double = 0
@@ -36,9 +35,6 @@ public class BreathReadings: Object {
       
       let (readingDateTime,leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings)
     
-     
-      
-       
        Utility().sendProcessedBreathDataReadings(readingDateTime,
                                       leftNostrilReading:leftNostrilReading,
                                       rightNostrilReading: rightNostrilReading,
@@ -66,7 +62,7 @@ public class BreathReadings: Object {
     let leftNostrilReading = getLeftNostrilReading(readings)
     let rightNostrilReading = getRightNostrilReading(readings)
     let activeNadi = getActiveNadi(leftNostrilReading,rightNostrilReading: rightNostrilReading)
-    let exhalationDirection = getExhalationDirection(readings)
+    let exhalationDirection = getExhalationDirection(readings,activeNadi: activeNadi)
     let activeTatva = getActiveTatva(exhalationDirection)
     
     addReadingsInRealm(readings,
@@ -88,7 +84,6 @@ public class BreathReadings: Object {
     let newReading = BreathReadings()
     
     newReading.readingDateTime = readings["readingDateTime"]!
-    newReading.ambientTemp = readings["ambientTemp"]!
     newReading.leftTop = readings["leftTop"]!
     newReading.centerTop = readings["centerTop"]!
     newReading.rightTop = readings["rightTop"]!
@@ -110,14 +105,14 @@ public class BreathReadings: Object {
   
   func getLeftNostrilReading(readings:Dictionary<String,Double> ) -> Double {
     
-    return Double(round(((readings["leftTop"]!+readings["leftBottom"]!+readings["leftMiddle"]!)/3.0)*100)/100)
+    return Double(round(((readings["leftTop"]! + readings["leftBottom"]! + readings["leftMiddle"]!)/3.0)*100)/100)
     
   }
   
   
   func getRightNostrilReading(readings:Dictionary<String,Double> ) -> Double {
     
-    return  Double(round(((readings["rightTop"]!+readings["rightBottom"]!+readings["rightMiddle"]!)/3.0)*100)/100)
+    return  Double(round(((readings["rightTop"]! + readings["rightBottom"]! + readings["rightMiddle"]!)/3.0)*100)/100)
     
   }
   
@@ -158,86 +153,136 @@ public class BreathReadings: Object {
  
  */
   
-  func getExhalationDirection(readings:Dictionary<String,Double>) -> String {
+  func getExhalationDirection(readings:Dictionary<String,Double>, activeNadi:String) -> String {
     
-    let breathingPattern =  getBreathingPattern(readings)
+    let breathingPattern =  getBreathingPattern(readings,activeNadi: activeNadi)
     let breathingDirection = getBrearthDirection(breathingPattern)
     
     return breathingDirection
     
   }
   
-  func getBrearthDirection(breathingPattern:Dictionary<String,Bool>) -> String {
+  func getBrearthDirection(breathingPattern:Array<String>) -> String {
     
     var brearthingDirection = "Undefined"
     
-    let earthBrearthingPattern:[String:Bool] =  ["leftTop":      false,
-                                                 "centerTop":    true,
-                                                 "rightTop":     false,
-                                                 "leftBottom" :  false,
-                                                 "leftMiddle":   true,
-                                                 "rightMiddle":  true,
-                                                 "rightBottom":  false]
+    let idaEarthBrearthingPattern:[String] =  ["rightTop",
+                                               "rightBottom",
+                                               "leftTop",
+                                               "leftBottom",
+                                               "centerTop",
+                                               "rightMiddle",
+                                               "leftMiddle"]
 
-
-
-    let waterBreathingPattern:[String:Bool] =  ["leftTop":      false,
-                                                "centerTop":    false,
-                                                "rightTop":     false,
-                                                "leftBottom" :  true,
-                                                "leftMiddle":   true,
-                                                "rightMiddle":  true,
-                                                "rightBottom":  false]
-
-    let fireBreathingPattern:[String:Bool] =   ["leftTop":      true,
-                                                "centerTop":    true,
-                                                "rightTop":     true,
-                                                "leftBottom" :  false,
-                                                "leftMiddle":   false,
-                                                "rightMiddle":  false,
-                                                "rightBottom":  false]
-
-    let airBreathingPattern:[String:Bool] =   [ "leftTop":      true,
-                                                "centerTop":    false,
-                                                "rightTop":     true,
-                                                "leftBottom" :  true,
-                                                "leftMiddle":   false,
-                                                "rightMiddle":  false,
-                                                "rightBottom":  true]
     
-    let etherBreathingPattern:[String:Bool] = ["leftTop":      true,
-                                               "centerTop":    true,
-                                               "rightTop":     true,
-                                               "leftBottom" :  true,
-                                               "leftMiddle":   true,
-                                               "rightMiddle":  true,
-                                               "rightBottom":  true]
+    let pingalaEarthBrearthingPattern:[String] =  [ "leftTop",
+                                                    "leftBottom",
+                                                    "rightTop",
+                                                    "rightBottom",
+                                                    "centerTop",
+                                                    "leftMiddle",
+                                                    "rightMiddle"]
+    
 
+
+    let idaWaterBreathingPattern:[String] =  ["rightTop",
+                                              "centerTop",
+                                              "leftTop",
+                                              "rightBottom",
+                                              "rightMiddle",
+                                              "leftMiddle",
+                                              "leftBottom"]
+
+    let pingalaWaterBreathingPattern:[String] =  ["leftTop",
+                                                  "centerTop",
+                                                  "rightTop",
+                                                  "leftBottom",
+                                                  "leftMiddle",
+                                                  "rightMiddle",
+                                                  "rightBottom"]
+    
+    let idaFireBreathingPattern:[String] =   ["rightBottom",
+                                              "leftBottom",
+                                              "rightMiddle",
+                                              "leftMiddle",
+                                              "rightTop",
+                                              "leftTop",
+                                              "centerTop"]
+
+    let pingalaFireBreathingPattern:[String] = ["leftBottom",
+                                                "rightBottom",
+                                                "leftMiddle",
+                                                "rightMiddle",
+                                                "leftTop",
+                                                "rightTop",
+                                                "centerTop"]
+    
+    let idaAirBreathingPattern:[String] =   [ "rightTop",
+                                               "rightBottom",
+                                               "rightMiddle",
+                                               "leftMiddle",
+                                               "centerTop",
+                                               "leftTop",
+                                               "leftBottom"]
+
+    let pingalaAirBreathingPattern:[String] =   [ "leftTop",
+                                                  "leftBottom",
+                                                  "leftMiddle",
+                                                  "rightMiddle",
+                                                  "centerTop",
+                                                  "rightTop",
+                                                  "rightBottom"]
+    
+    let idaEtherBreathingPattern:[String] = ["rightBottom",
+                                              "rightTop",
+                                              "rightMiddle",
+                                              "centerTop",
+                                              "leftBottom",
+                                              "leftTop",
+                                              "leftMiddle"]
+
+    
+    let pingalaEtherBreathingPattern:[String] = ["leftBottom",
+                                                 "leftTop",
+                                                 "leftMiddle",
+                                                 "centerTop",
+                                                 "rightBottom",
+                                                 "rightTop",
+                                                 "rightMiddle"]
   
-    let directionBreathingPatterns: [String: NSDictionary] =
+    let directionBreathingPatterns: [String:Array<String>] =
       
-                                                         ["Earth": earthBrearthingPattern,
-                                                          "Water": waterBreathingPattern,
-                                                          "Fire":  fireBreathingPattern,
-                                                          "Air":   airBreathingPattern,
-                                                          "Ether": etherBreathingPattern]
+                                                         ["Ida Earth":     idaEarthBrearthingPattern,
+                                                          "Pingala Earth": pingalaEarthBrearthingPattern,
+                                                          "Ida Water":     idaWaterBreathingPattern,
+                                                          "Pingala Water": pingalaWaterBreathingPattern,
+                                                          "Ida Fire":      idaFireBreathingPattern,
+                                                          "Pingala Fire":  pingalaFireBreathingPattern,
+                                                          "Ida Air":       idaAirBreathingPattern,
+                                                          "Pingala Air":   pingalaAirBreathingPattern,
+                                                          "Ida Ether":     idaEtherBreathingPattern,
+                                                          "Pingala Ether": pingalaEtherBreathingPattern]
     
     
    
-    NSLog("Breathing Pattern: \(breathingPattern)")
+    NSLog("Breathing Pattern : \(breathingPattern)")
+    
+
     
     for(direction,directionPattern) in directionBreathingPatterns {
     
-      if (NSDictionary(dictionary: directionPattern).isEqualToDictionary(breathingPattern)){
-        
+      if (breathingPattern == directionPattern){
         
             NSLog("Found Matching breathing pattern")
             NSLog("Direction:\(direction) - Direction Pattern\(directionPattern) - Breathing pattern\(breathingPattern)")
-        
             brearthingDirection = direction
         
       }
     }
+ 
+    
+    
+    NSLog("Breathing Direction : \(brearthingDirection)")
     
     
     return brearthingDirection
@@ -245,72 +290,77 @@ public class BreathReadings: Object {
   }
   
   
+  
   /*
  
-    Assumption: Any sensor temperature which is NOT equal to base Temperature we are considering it as a reading to calculate direction of breath
+    Assumption: 
+   
+     - For Ida when temperatures are same; we sort keys so that keys are sorted decending (so that left and center goes to right most)
+     - For Pingala when temperatures are same; we sort keys so that keys are sorted ascending (so that right and center goes to right most)
  
  
  */
   
-  func getBreathingPattern(readings:Dictionary<String,Double>) -> Dictionary<String,Bool> {
+  func getBreathingPattern(readings:Dictionary<String,Double>, activeNadi:String) -> Array<String> {
+    
+    var breathingPattern = [String]()
+    var sensorReadings = readings
   
-        var breathPattern:[String:Bool] = ["leftTop":      false,
-                                           "centerTop":    false,
-                                           "rightTop":     false,
-                                           "leftBottom" :  false,
-                                           "leftMiddle":   false,
-                                           "rightMiddle":  false,
-                                           "rightBottom":  false]
+    sensorReadings.removeValueForKey("readingDateTime")
+    
+    var keySortedReturnValue =  false
     
     
-        let baseTemperature = readings["ambientTemp"]
+    // When temperature values are same. Then Check for active nadi and then sort keys in decending order
     
-        // NSLog("readings\(readings)")
-        
-        if(readings["leftTop"] != baseTemperature){
-          
-          breathPattern["leftTop"] = true
-          
-        }
-    
-        if (readings["centerTop"] != baseTemperature){
-          
-          breathPattern["centerTop"] = true
-          
-        }
-    
-       if (readings["rightTop"] != baseTemperature){
-          
-          breathPattern["rightTop"] = true
-          
-        }
-    
-        if (readings["leftBottom"] != baseTemperature){
-          
-          breathPattern["leftBottom"] = true
-          
-        }
-    
-       if (readings["leftMiddle"] != baseTemperature){
-          
-          breathPattern["leftMiddle"] = true
-          
-        }
-    
-       if (readings["rightMiddle"] != baseTemperature){
-          
-          breathPattern["rightMiddle"] = true
-          
-        }
-    
-       if (readings["rightBottom"] != baseTemperature){
-          
-          breathPattern["rightBottom"] = true
-          
-        }
-    
+    let sortedSensorReadings = sensorReadings.map { (key: $0.0, value: $0.1) }.sort {
       
-       return breathPattern;
+                                                                  if $0.value != $1.value {
+                                                                    return $0.value < $1.value
+                                                                  }
+                                                                  if (activeNadi == "Ida") {
+                                                                    if ($0.value == $1.value){
+                                                                      if ($0.key > $1.key){
+                                                                        keySortedReturnValue =  true
+                                                                      }else {
+                                                                        keySortedReturnValue =  false
+                                                                      }
+                                                                    }else {
+                                                                       keySortedReturnValue =  true
+                                                                       }
+                                                                  }else if (activeNadi == "Pingala") {
+                                                                    if ($0.value == $1.value){
+                                                                      if ($0.key < $1.key){
+                                                                        keySortedReturnValue =  true
+                                                                      }else {
+                                                                        keySortedReturnValue =  false
+                                                                      }
+                                                                    }else {
+                                                                      keySortedReturnValue =  true
+                                                                    }
+                                                                  }else if (activeNadi == "Sushumna") {
+                                                                    if ($0.value == $1.value){
+                                                                      if ($0.key < $1.key){
+                                                                        keySortedReturnValue =  true
+                                                                      }else {
+                                                                        keySortedReturnValue =  false
+                                                                      }
+                                                                    }else {
+                                                                      keySortedReturnValue =  true
+                                                                    }
+                                                                 }
+      
+                return keySortedReturnValue
+    }
+    
+    
+    NSLog("Sorted Sensor readings: \(sortedSensorReadings)")
+    
+    for(key, value) in sortedSensorReadings {
+      breathingPattern.append(key)
+    }
+    
+    return breathingPattern;
       
   }
   
@@ -322,6 +372,7 @@ public class BreathReadings: Object {
    For now we are using only Direction to find out active Tatva for POC.
   
   */
+  
   func getActiveTatva(exhalationDirection:String) -> String {
     
     var activeTatva = "Undefined"
@@ -341,8 +392,14 @@ public class BreathReadings: Object {
     return activeTatva
     
   }
-
   
+}
+
+
+extension Dictionary where Value: Comparable {
+  var valueSorted: [(Key, Value)] {
+    return sort{ $0.1 < $1.1 }
+  }
   
 }
 
