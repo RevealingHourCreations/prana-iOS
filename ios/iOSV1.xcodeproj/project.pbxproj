@@ -27,12 +27,19 @@
 		675394401CD323DB001CC7A6 /* BTLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6753943F1CD323DB001CC7A6 /* BTLEManager.swift */; };
 		675394421CD3284A001CC7A6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675394411CD3284A001CC7A6 /* Utility.swift */; };
 		675394441CD32999001CC7A6 /* BreathReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675394431CD32999001CC7A6 /* BreathReadings.swift */; };
+		6768D2461CFD61D600168587 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6768D2451CFD61D600168587 /* GoogleService-Info.plist */; };
 		67A6FB171CC0CCC2005BB73D /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB151CC0CCC2005BB73D /* Charts.framework */; };
 		67A6FB181CC0CCC2005BB73D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */; };
 		67A6FB231CC0CDB7005BB73D /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB151CC0CCC2005BB73D /* Charts.framework */; };
 		67A6FB241CC0CDB7005BB73D /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB151CC0CCC2005BB73D /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		67A6FB251CC0CDB7005BB73D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */; };
 		67A6FB261CC0CDB7005BB73D /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		67C0C78C1D0057B700C1BF58 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */; };
+		67C0C78D1D0057B700C1BF58 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */; };
+		67C0C78E1D0057B700C1BF58 /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7891D0057B700C1BF58 /* GoogleInterchangeUtilities.framework */; };
+		67C0C78F1D0057B700C1BF58 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C78A1D0057B700C1BF58 /* GoogleSymbolUtilities.framework */; };
+		67C0C7901D0057B700C1BF58 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C78B1D0057B700C1BF58 /* GoogleUtilities.framework */; };
+		67C0C7A11D015D5000C1BF58 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */; };
 		67F330891CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F3305F1CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift */; };
 		67F3308A1CC0C08800AF4628 /* chartDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F330601CC0C08800AF4628 /* chartDataHelpers.swift */; };
 		67F3308B1CC0C08800AF4628 /* RNCombinedChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F330611CC0C08800AF4628 /* RNCombinedChart.swift */; };
@@ -200,8 +207,17 @@
 		6753943F1CD323DB001CC7A6 /* BTLEManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEManager.swift; sourceTree = "<group>"; };
 		675394411CD3284A001CC7A6 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		675394431CD32999001CC7A6 /* BreathReadings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BreathReadings.swift; path = iOSV1/BreathReadings.swift; sourceTree = "<group>"; };
+		6768D2451CFD61D600168587 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		67A6FB151CC0CCC2005BB73D /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSV1-bbhgxoftkruwkvdrprvpvtngogiw/Build/Products/Debug-iphonesimulator/Charts.framework"; sourceTree = "<group>"; };
 		67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSV1-bbhgxoftkruwkvdrprvpvtngogiw/Build/Products/Debug-iphonesimulator/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = ../../../../../../../Downloads/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = ../../../../../../../Downloads/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		67C0C7891D0057B700C1BF58 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = ../../../../../../../Downloads/Firebase/Analytics/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		67C0C78A1D0057B700C1BF58 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = ../../../../../../../Downloads/Firebase/Analytics/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		67C0C78B1D0057B700C1BF58 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = ../../../../../../../Downloads/Firebase/Analytics/GoogleUtilities.framework; sourceTree = "<group>"; };
+		67C0C79E1D0058DC00C1BF58 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = ../../../../../../../Downloads/Firebase/Firebase.h; sourceTree = "<group>"; };
+		67C0C79F1D00590100C1BF58 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = ../../../../../../../Downloads/Firebase/module.modulemap; sourceTree = "<group>"; };
+		67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = ../../../../../../../Downloads/Firebase/Database/FirebaseDatabase.framework; sourceTree = "<group>"; };
 		67F3305E1CC0C08700AF4628 /* iOSV1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSV1-Bridging-Header.h"; sourceTree = "<group>"; };
 		67F3305F1CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarLineChartViewBaseExtension.swift; path = "../node_modules/react-native-ios-charts/RNiOSCharts/BarLineChartViewBaseExtension.swift"; sourceTree = "<group>"; };
 		67F330601CC0C08800AF4628 /* chartDataHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = chartDataHelpers.swift; path = "../node_modules/react-native-ios-charts/RNiOSCharts/chartDataHelpers.swift"; sourceTree = "<group>"; };
@@ -266,17 +282,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67C0C78E1D0057B700C1BF58 /* GoogleInterchangeUtilities.framework in Frameworks */,
 				67A6FB171CC0CCC2005BB73D /* Charts.framework in Frameworks */,
 				67A6FB181CC0CCC2005BB73D /* SwiftyJSON.framework in Frameworks */,
+				67C0C7901D0057B700C1BF58 /* GoogleUtilities.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				67C0C78F1D0057B700C1BF58 /* GoogleSymbolUtilities.framework in Frameworks */,
 				67A6FB231CC0CDB7005BB73D /* Charts.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
+				67C0C78D1D0057B700C1BF58 /* FirebaseInstanceID.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
+				67C0C7A11D015D5000C1BF58 /* FirebaseDatabase.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
+				67C0C78C1D0057B700C1BF58 /* FirebaseAnalytics.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				AF507CCE217D43666714AD9B /* Pods_iOSV1.framework in Frameworks */,
@@ -393,6 +415,12 @@
 		574FE1D06627272DF91391BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */,
+				67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */,
+				67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */,
+				67C0C7891D0057B700C1BF58 /* GoogleInterchangeUtilities.framework */,
+				67C0C78A1D0057B700C1BF58 /* GoogleSymbolUtilities.framework */,
+				67C0C78B1D0057B700C1BF58 /* GoogleUtilities.framework */,
 				67A6FB151CC0CCC2005BB73D /* Charts.framework */,
 				67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */,
 				D09867C032B3C66C1DFE9EB8 /* Pods_iOSV1.framework */,
@@ -496,7 +524,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				6768D2451CFD61D600168587 /* GoogleService-Info.plist */,
 				67F330AB1CC0CA8700AF4628 /* Podfile */,
+				67C0C79E1D0058DC00C1BF58 /* Firebase.h */,
+				67C0C79F1D00590100C1BF58 /* module.modulemap */,
 				13B07FAE1A68108700A75B9A /* iOSV1 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* iOSV1Tests */,
@@ -747,6 +778,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				67F330AC1CC0CA8700AF4628 /* Podfile in Resources */,
+				6768D2461CFD61D600168587 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -965,7 +997,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = iOSV1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -992,7 +1024,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = iOSV1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";

@@ -11,6 +11,8 @@
 #import "RCTRootView.h"
 #import "iOSV1-swift.h"
 #import "RCTBridge.h"
+#import "Firebase.h"
+
 
 @implementation AppDelegate
 
@@ -57,7 +59,9 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  //_appBridge = rootView.bridge
+  
+  // Use Firebase library to configure APIs
+  [FIRApp configure];
   
   // Scan and Connect to BreathSensor BTLE.
   [[BTLEManager sharedInstance] scan:10.0 allowDuplicated:YES appBridge:rootView.bridge];

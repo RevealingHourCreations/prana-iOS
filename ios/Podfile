@@ -7,6 +7,8 @@ target 'iOSV1' do
  pod 'SwiftyJSON', '~> 2.3'
  pod 'Charts', '2.2.3'
  pod 'RealmSwift'
+ pod 'Firebase'
+ 
 end
 
 target 'iOSV1Tests' do
