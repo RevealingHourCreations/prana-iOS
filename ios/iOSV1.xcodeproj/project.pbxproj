@@ -23,6 +23,10 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		35E8E89A64464DBD8F2773B2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F283694150024A3383CECF4C /* libc++.tbd */; };
 		57016C6A473F46FC9A9C9668 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC753248FA7745ACB8ADA739 /* libRealmReact.a */; };
+		671BC8EC1D06F6320057CBE8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */; };
+		671BC8F91D06F63C0057CBE8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8F81D06F63C0057CBE8 /* Security.framework */; };
+		671BC8FB1D06F6490057CBE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8FA1D06F6490057CBE8 /* Foundation.framework */; };
+		671BC8FD1D06F6620057CBE8 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8FC1D06F6620057CBE8 /* libicucore.tbd */; };
 		67284EE11CD7651000E97F1E /* UtilityBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 67284EE01CD7651000E97F1E /* UtilityBridge.m */; };
 		675394401CD323DB001CC7A6 /* BTLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6753943F1CD323DB001CC7A6 /* BTLEManager.swift */; };
 		675394421CD3284A001CC7A6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675394411CD3284A001CC7A6 /* Utility.swift */; };
@@ -203,6 +207,10 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2E591C2E6239264B6B764A46 /* Pods-iOSV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSV1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSV1/Pods-iOSV1.debug.xcconfig"; sourceTree = "<group>"; };
 		4048294F4D1E43A3A0EC58C4 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		671BC8F81D06F63C0057CBE8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		671BC8FA1D06F6490057CBE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		671BC8FC1D06F6620057CBE8 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		67284EE01CD7651000E97F1E /* UtilityBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UtilityBridge.m; path = iOSV1/UtilityBridge.m; sourceTree = "<group>"; };
 		6753943F1CD323DB001CC7A6 /* BTLEManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEManager.swift; sourceTree = "<group>"; };
 		675394411CD3284A001CC7A6 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -282,6 +290,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671BC8FD1D06F6620057CBE8 /* libicucore.tbd in Frameworks */,
+				671BC8FB1D06F6490057CBE8 /* Foundation.framework in Frameworks */,
+				671BC8F91D06F63C0057CBE8 /* Security.framework in Frameworks */,
+				671BC8EC1D06F6320057CBE8 /* CFNetwork.framework in Frameworks */,
 				67C0C78E1D0057B700C1BF58 /* GoogleInterchangeUtilities.framework in Frameworks */,
 				67A6FB171CC0CCC2005BB73D /* Charts.framework in Frameworks */,
 				67A6FB181CC0CCC2005BB73D /* SwiftyJSON.framework in Frameworks */,
@@ -415,6 +427,10 @@
 		574FE1D06627272DF91391BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				671BC8FC1D06F6620057CBE8 /* libicucore.tbd */,
+				671BC8FA1D06F6490057CBE8 /* Foundation.framework */,
+				671BC8F81D06F63C0057CBE8 /* Security.framework */,
+				671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */,
 				67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */,
 				67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */,
 				67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */,
@@ -997,7 +1013,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = iOSV1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1024,7 +1040,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = iOSV1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
