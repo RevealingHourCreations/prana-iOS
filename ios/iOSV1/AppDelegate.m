@@ -9,9 +9,9 @@
 
 #import "AppDelegate.h"
 #import "RCTRootView.h"
-#import "iOSV1-swift.h"
+#import "iOSV1-Swift.h"
 #import "RCTBridge.h"
-#import "Firebase.h"
+//#import "Firebase.h"
 
 
 @implementation AppDelegate
@@ -35,7 +35,9 @@
    * on the same Wi-Fi network.
    */
 
-  //jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.4:8081/index.ios.bundle?platform=ios&dev=true"];
+ // jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.3:8081/index.ios.bundle?platform=ios&dev=true"];
+
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 
   /**
    * OPTION 2
@@ -45,7 +47,7 @@
    * simulator in the "Release" build configuration.
    */
 
-   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+   //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   
  
   
@@ -61,12 +63,14 @@
   [self.window makeKeyAndVisible];
   
   // Use Firebase library to configure APIs
-  [FIRApp configure];
+ // [FIRApp configure];
   
-  // Scan and Connect to BreathSensor BTLE.
-  [[BTLEManager sharedInstance] scan:10.0 allowDuplicated:YES appBridge:rootView.bridge];
   
   return YES;
+  
+  // Scan and Connect to BreathSensor BTLE.
+  //[[BTLEManager sharedInstance] scan:10.0 allowDuplicated:YES appBridge:rootView.bridge];
+
 }
 
 @end

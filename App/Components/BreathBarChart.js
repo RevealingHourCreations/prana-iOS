@@ -10,15 +10,6 @@ var {
   Text
 } = React;
 
-// Import Swift Class which is exported to ReactNative.
-// Demand in the auto-generated JavaScript class for our Swift class
-
-var {
-    
-    Utility
-} = require('NativeModules');
-
-
 
 function sleepFor( sleepDuration ){
     var now = new Date().getTime();

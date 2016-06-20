@@ -7,24 +7,24 @@
 //
 
 import Foundation
-import RealmSwift
+import Firebase
 
-public class BreathReadings: Object {
-  //var reading_datetime : NSInteger = 0
+public class BreathReadings {
   
-   dynamic var readingDateTime : Double = 0
-   dynamic var leftMiddle : Double = 0
-   dynamic var rightMiddle : Double = 0
-   dynamic var leftTop : Double = 0
-   dynamic var rightTop : Double = 0
-   dynamic var leftBottom : Double = 0
-   dynamic var rightBottom : Double = 0
-   dynamic var centerTop : Double = 0
-   dynamic var activeNadi : String = ""
-   dynamic var exhalationDirection : String = ""
-   dynamic var activeTatva : String = ""
+    var readingDateTime : Double = 0
+    var leftMiddle : Double = 0
+    var rightMiddle : Double = 0
+    var leftTop : Double = 0
+    var rightTop : Double = 0
+    var leftBottom : Double = 0
+    var rightBottom : Double = 0
+    var centerTop : Double = 0
+    var activeNadi : String = ""
+    var exhalationDirection : String = ""
+    var activeTatva : String = ""
   
   
+  var ref = FIRDatabase.database().reference()
   
   func processBreathData(data:NSData!,appBridge: RCTBridge!) -> Void {
   
@@ -65,17 +65,55 @@ public class BreathReadings: Object {
     let exhalationDirection = getExhalationDirection(readings,activeNadi: activeNadi)
     let activeTatva = getActiveTatva(exhalationDirection)
     
-    addReadingsInRealm(readings,
-                       activeNadi: activeNadi,
-                       exhalationDirection: exhalationDirection,
-                       activeTatva: activeTatva )
+    /* DataBaseService().storeBreathReadings(readings,
+                                        activeNadi: activeNadi,
+                                        exhalationDirection: exhalationDirection,
+                                        activeTatva: activeTatva )
+   */
     
     return (readingDateTime!,leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )
     
   }
   
   
-  func addReadingsInRealm(readings:Dictionary<String,Double>, activeNadi:String, exhalationDirection:String, activeTatva:String ){
+  func addReadingsInFireBase(readings:Dictionary<String,Double>,
+                             activeNadi:String,
+                             exhalationDirection:String,
+                             activeTatva:String ){
+    
+    // [START create_database_reference]
+    self.ref = FIRDatabase.database().reference()
+    // [END create_database_reference]
+    
+    FIRAuth.auth()?.signInAnonymouslyWithCompletion() { (user, error) in
+     /* let isAnonymous = user!.anonymous  // true
+      let uid = user!.uid
+      NSLog("User id:\(uid)")
+      NSLog("Is Anonymous:\(isAnonymous)")*/
+    }
+    
+    let key = ref.child("BreathReadings").childByAutoId().key
+    NSLog("key:\(key)")
+
+    let breathReading = ["uid": 1,
+                "readingDateTime": readings["readingDateTime"]!,
+                "leftTop":  readings["leftTop"]!,
+                 "centerTop":  readings["centerTop"]!,
+                 "rightTop":  readings["rightTop"]!,
+                 "leftBottom":  readings["leftBottom"]!,
+                 "leftMiddle":  readings["leftMiddle"]!,
+                 "rightMiddle":  readings["rightMiddle"]!,
+                 "rightBottom":  readings["rightBottom"]!,
+                 "activeNadi":  activeNadi,
+                 "exhalationDirection": exhalationDirection,
+                 "activeTatva":  activeTatva
+                 
+                ]
+    let childUpdates = ["/BreathReadings/\(key)": breathReading]
+    NSLog("childUpdates:\(childUpdates)")
+    ref.updateChildValues(childUpdates)
+
+    /*
     
     // Get the default Realm
     let realm = try! Realm()
@@ -100,6 +138,7 @@ public class BreathReadings: Object {
       realm.add(newReading)
     }
     
+ */
   }
   
   

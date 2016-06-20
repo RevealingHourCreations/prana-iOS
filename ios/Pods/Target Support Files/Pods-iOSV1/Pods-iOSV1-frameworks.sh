@@ -85,13 +85,9 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-iOSV1/Charts.framework"
-  install_framework "Pods-iOSV1/Realm.framework"
-  install_framework "Pods-iOSV1/RealmSwift.framework"
   install_framework "Pods-iOSV1/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-iOSV1/Charts.framework"
-  install_framework "Pods-iOSV1/Realm.framework"
-  install_framework "Pods-iOSV1/RealmSwift.framework"
   install_framework "Pods-iOSV1/SwiftyJSON.framework"
 fi

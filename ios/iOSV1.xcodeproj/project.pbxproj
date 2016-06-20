@@ -23,27 +23,18 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		35E8E89A64464DBD8F2773B2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F283694150024A3383CECF4C /* libc++.tbd */; };
 		57016C6A473F46FC9A9C9668 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC753248FA7745ACB8ADA739 /* libRealmReact.a */; };
-		671BC8EC1D06F6320057CBE8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */; };
-		671BC8F91D06F63C0057CBE8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8F81D06F63C0057CBE8 /* Security.framework */; };
+		6716C4AE1D0FE4010074AAFD /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6716C4AD1D0FE4010074AAFD /* Charts.framework */; };
+		6716C4BB1D0FE4060074AAFD /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6716C4BA1D0FE4060074AAFD /* SwiftyJSON.framework */; };
+		671BC8EC1D06F6320057CBE8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		671BC8F91D06F63C0057CBE8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8F81D06F63C0057CBE8 /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		671BC8FB1D06F6490057CBE8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8FA1D06F6490057CBE8 /* Foundation.framework */; };
 		671BC8FD1D06F6620057CBE8 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8FC1D06F6620057CBE8 /* libicucore.tbd */; };
 		67284EE11CD7651000E97F1E /* UtilityBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 67284EE01CD7651000E97F1E /* UtilityBridge.m */; };
-		675394401CD323DB001CC7A6 /* BTLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6753943F1CD323DB001CC7A6 /* BTLEManager.swift */; };
-		675394421CD3284A001CC7A6 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675394411CD3284A001CC7A6 /* Utility.swift */; };
 		675394441CD32999001CC7A6 /* BreathReadings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675394431CD32999001CC7A6 /* BreathReadings.swift */; };
 		6768D2461CFD61D600168587 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6768D2451CFD61D600168587 /* GoogleService-Info.plist */; };
-		67A6FB171CC0CCC2005BB73D /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB151CC0CCC2005BB73D /* Charts.framework */; };
-		67A6FB181CC0CCC2005BB73D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */; };
-		67A6FB231CC0CDB7005BB73D /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB151CC0CCC2005BB73D /* Charts.framework */; };
-		67A6FB241CC0CDB7005BB73D /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB151CC0CCC2005BB73D /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		67A6FB251CC0CDB7005BB73D /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */; };
-		67A6FB261CC0CDB7005BB73D /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		67C0C78C1D0057B700C1BF58 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */; };
-		67C0C78D1D0057B700C1BF58 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */; };
-		67C0C78E1D0057B700C1BF58 /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7891D0057B700C1BF58 /* GoogleInterchangeUtilities.framework */; };
-		67C0C78F1D0057B700C1BF58 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C78A1D0057B700C1BF58 /* GoogleSymbolUtilities.framework */; };
-		67C0C7901D0057B700C1BF58 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C78B1D0057B700C1BF58 /* GoogleUtilities.framework */; };
-		67C0C7A11D015D5000C1BF58 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */; };
+		67CEE9091D0B4228005E4540 /* BTLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEE9081D0B4228005E4540 /* BTLEManager.swift */; };
+		67CEE90B1D0B424D005E4540 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEE90A1D0B424C005E4540 /* Utility.swift */; };
+		67CEE9191D0EA140005E4540 /* DataBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CEE9181D0EA13F005E4540 /* DataBaseService.swift */; };
 		67F330891CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F3305F1CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift */; };
 		67F3308A1CC0C08800AF4628 /* chartDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F330601CC0C08800AF4628 /* chartDataHelpers.swift */; };
 		67F3308B1CC0C08800AF4628 /* RNCombinedChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F330611CC0C08800AF4628 /* RNCombinedChart.swift */; };
@@ -176,8 +167,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				67A6FB261CC0CDB7005BB73D /* SwiftyJSON.framework in Embed Frameworks */,
-				67A6FB241CC0CDB7005BB73D /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,25 +196,19 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2E591C2E6239264B6B764A46 /* Pods-iOSV1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSV1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSV1/Pods-iOSV1.debug.xcconfig"; sourceTree = "<group>"; };
 		4048294F4D1E43A3A0EC58C4 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		6716C4AD1D0FE4010074AAFD /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSV1-bbhgxoftkruwkvdrprvpvtngogiw/Build/Products/Debug-iphoneos/Charts.framework"; sourceTree = "<group>"; };
+		6716C4BA1D0FE4060074AAFD /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSV1-bbhgxoftkruwkvdrprvpvtngogiw/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<group>"; };
 		671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		671BC8F81D06F63C0057CBE8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		671BC8FA1D06F6490057CBE8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		671BC8FC1D06F6620057CBE8 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		67284EE01CD7651000E97F1E /* UtilityBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UtilityBridge.m; path = iOSV1/UtilityBridge.m; sourceTree = "<group>"; };
-		6753943F1CD323DB001CC7A6 /* BTLEManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTLEManager.swift; sourceTree = "<group>"; };
-		675394411CD3284A001CC7A6 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		675394431CD32999001CC7A6 /* BreathReadings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BreathReadings.swift; path = iOSV1/BreathReadings.swift; sourceTree = "<group>"; };
 		6768D2451CFD61D600168587 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		67A6FB151CC0CCC2005BB73D /* Charts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Charts.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSV1-bbhgxoftkruwkvdrprvpvtngogiw/Build/Products/Debug-iphonesimulator/Charts.framework"; sourceTree = "<group>"; };
-		67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/iOSV1-bbhgxoftkruwkvdrprvpvtngogiw/Build/Products/Debug-iphonesimulator/SwiftyJSON.framework"; sourceTree = "<group>"; };
-		67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = ../../../../../../../Downloads/Firebase/Analytics/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = ../../../../../../../Downloads/Firebase/Analytics/FirebaseInstanceID.framework; sourceTree = "<group>"; };
-		67C0C7891D0057B700C1BF58 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = ../../../../../../../Downloads/Firebase/Analytics/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
-		67C0C78A1D0057B700C1BF58 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = ../../../../../../../Downloads/Firebase/Analytics/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
-		67C0C78B1D0057B700C1BF58 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = ../../../../../../../Downloads/Firebase/Analytics/GoogleUtilities.framework; sourceTree = "<group>"; };
 		67C0C79E1D0058DC00C1BF58 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = ../../../../../../../Downloads/Firebase/Firebase.h; sourceTree = "<group>"; };
-		67C0C79F1D00590100C1BF58 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = ../../../../../../../Downloads/Firebase/module.modulemap; sourceTree = "<group>"; };
-		67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = ../../../../../../../Downloads/Firebase/Database/FirebaseDatabase.framework; sourceTree = "<group>"; };
+		67CEE9081D0B4228005E4540 /* BTLEManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BTLEManager.swift; path = iOSV1/BTLEManager.swift; sourceTree = "<group>"; };
+		67CEE90A1D0B424C005E4540 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = iOSV1/Utility.swift; sourceTree = "<group>"; };
+		67CEE9181D0EA13F005E4540 /* DataBaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataBaseService.swift; path = iOSV1/DataBaseService.swift; sourceTree = "<group>"; };
 		67F3305E1CC0C08700AF4628 /* iOSV1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOSV1-Bridging-Header.h"; sourceTree = "<group>"; };
 		67F3305F1CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarLineChartViewBaseExtension.swift; path = "../node_modules/react-native-ios-charts/RNiOSCharts/BarLineChartViewBaseExtension.swift"; sourceTree = "<group>"; };
 		67F330601CC0C08800AF4628 /* chartDataHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = chartDataHelpers.swift; path = "../node_modules/react-native-ios-charts/RNiOSCharts/chartDataHelpers.swift"; sourceTree = "<group>"; };
@@ -290,31 +273,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6716C4BB1D0FE4060074AAFD /* SwiftyJSON.framework in Frameworks */,
+				6716C4AE1D0FE4010074AAFD /* Charts.framework in Frameworks */,
 				671BC8FD1D06F6620057CBE8 /* libicucore.tbd in Frameworks */,
 				671BC8FB1D06F6490057CBE8 /* Foundation.framework in Frameworks */,
 				671BC8F91D06F63C0057CBE8 /* Security.framework in Frameworks */,
 				671BC8EC1D06F6320057CBE8 /* CFNetwork.framework in Frameworks */,
-				67C0C78E1D0057B700C1BF58 /* GoogleInterchangeUtilities.framework in Frameworks */,
-				67A6FB171CC0CCC2005BB73D /* Charts.framework in Frameworks */,
-				67A6FB181CC0CCC2005BB73D /* SwiftyJSON.framework in Frameworks */,
-				67C0C7901D0057B700C1BF58 /* GoogleUtilities.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				67C0C78F1D0057B700C1BF58 /* GoogleSymbolUtilities.framework in Frameworks */,
-				67A6FB231CC0CDB7005BB73D /* Charts.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
-				67C0C78D1D0057B700C1BF58 /* FirebaseInstanceID.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
-				67C0C7A11D015D5000C1BF58 /* FirebaseDatabase.framework in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
-				67C0C78C1D0057B700C1BF58 /* FirebaseAnalytics.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				AF507CCE217D43666714AD9B /* Pods_iOSV1.framework in Frameworks */,
-				67A6FB251CC0CDB7005BB73D /* SwiftyJSON.framework in Frameworks */,
 				57016C6A473F46FC9A9C9668 /* libRealmReact.a in Frameworks */,
 				35E8E89A64464DBD8F2773B2 /* libc++.tbd in Frameworks */,
 				ADE450FF1A624DD793FE01E7 /* libz.tbd in Frameworks */,
@@ -400,18 +375,19 @@
 		13B07FAE1A68108700A75B9A /* iOSV1 */ = {
 			isa = PBXGroup;
 			children = (
-				6753943F1CD323DB001CC7A6 /* BTLEManager.swift */,
-				67284EE01CD7651000E97F1E /* UtilityBridge.m */,
-				675394411CD3284A001CC7A6 /* Utility.swift */,
+				67CEE90A1D0B424C005E4540 /* Utility.swift */,
 				675394431CD32999001CC7A6 /* BreathReadings.swift */,
-				6765FA3E1CCE378D008D82AA /* Charts */,
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				67CEE9181D0EA13F005E4540 /* DataBaseService.swift */,
+				67CEE9081D0B4228005E4540 /* BTLEManager.swift */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				67284EE01CD7651000E97F1E /* UtilityBridge.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				6765FA3E1CCE378D008D82AA /* Charts */,
 			);
 			name = iOSV1;
 			sourceTree = "<group>";
@@ -427,18 +403,12 @@
 		574FE1D06627272DF91391BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6716C4BA1D0FE4060074AAFD /* SwiftyJSON.framework */,
+				6716C4AD1D0FE4010074AAFD /* Charts.framework */,
 				671BC8FC1D06F6620057CBE8 /* libicucore.tbd */,
 				671BC8FA1D06F6490057CBE8 /* Foundation.framework */,
 				671BC8F81D06F63C0057CBE8 /* Security.framework */,
 				671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */,
-				67C0C7A01D015D5000C1BF58 /* FirebaseDatabase.framework */,
-				67C0C7871D0057B700C1BF58 /* FirebaseAnalytics.framework */,
-				67C0C7881D0057B700C1BF58 /* FirebaseInstanceID.framework */,
-				67C0C7891D0057B700C1BF58 /* GoogleInterchangeUtilities.framework */,
-				67C0C78A1D0057B700C1BF58 /* GoogleSymbolUtilities.framework */,
-				67C0C78B1D0057B700C1BF58 /* GoogleUtilities.framework */,
-				67A6FB151CC0CCC2005BB73D /* Charts.framework */,
-				67A6FB161CC0CCC2005BB73D /* SwiftyJSON.framework */,
 				D09867C032B3C66C1DFE9EB8 /* Pods_iOSV1.framework */,
 				F283694150024A3383CECF4C /* libc++.tbd */,
 				4048294F4D1E43A3A0EC58C4 /* libz.tbd */,
@@ -543,7 +513,6 @@
 				6768D2451CFD61D600168587 /* GoogleService-Info.plist */,
 				67F330AB1CC0CA8700AF4628 /* Podfile */,
 				67C0C79E1D0058DC00C1BF58 /* Firebase.h */,
-				67C0C79F1D00590100C1BF58 /* module.modulemap */,
 				13B07FAE1A68108700A75B9A /* iOSV1 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* iOSV1Tests */,
@@ -624,7 +593,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 730;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -633,6 +602,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = JFJ7QVPY27;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -890,11 +864,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67CEE9091D0B4228005E4540 /* BTLEManager.swift in Sources */,
 				675394441CD32999001CC7A6 /* BreathReadings.swift in Sources */,
 				67F3309B1CC0C08800AF4628 /* RNCandleChartManager.swift in Sources */,
 				67F3308A1CC0C08800AF4628 /* chartDataHelpers.swift in Sources */,
 				67284EE11CD7651000E97F1E /* UtilityBridge.m in Sources */,
 				67F330921CC0C08800AF4628 /* RNCombinedChartManager.swift in Sources */,
+				67CEE90B1D0B424D005E4540 /* Utility.swift in Sources */,
 				67F330A11CC0C08800AF4628 /* RNBarChartManager.swift in Sources */,
 				67F330A41CC0C08800AF4628 /* RNHorizontalBarChartManager.swift in Sources */,
 				67F330951CC0C08800AF4628 /* RNRadarChartManager.swift in Sources */,
@@ -908,7 +884,6 @@
 				67F3309D1CC0C08800AF4628 /* ChartViewBaseExtension.swift in Sources */,
 				67F330931CC0C08800AF4628 /* RNPieChart.swift in Sources */,
 				67F330941CC0C08800AF4628 /* RNRadarChart.swift in Sources */,
-				675394421CD3284A001CC7A6 /* Utility.swift in Sources */,
 				67F330901CC0C08800AF4628 /* RNBarChart.swift in Sources */,
 				67F330991CC0C08800AF4628 /* RNBubbleChart.m in Sources */,
 				67F3309F1CC0C08800AF4628 /* PieRadarChartViewBaseExtension.swift in Sources */,
@@ -920,8 +895,8 @@
 				67F330971CC0C08800AF4628 /* RNScatterChart.m in Sources */,
 				67F3309A1CC0C08800AF4628 /* RNBubbleChartManager.swift in Sources */,
 				67F3309E1CC0C08800AF4628 /* ABNumberFormatter.swift in Sources */,
-				675394401CD323DB001CC7A6 /* BTLEManager.swift in Sources */,
 				67F330A31CC0C08800AF4628 /* RNHorizontalBarChart.swift in Sources */,
+				67CEE9191D0EA140005E4540 /* DataBaseService.swift in Sources */,
 				67F330A71CC0C08800AF4628 /* RNPieChart.m in Sources */,
 				67F330891CC0C08800AF4628 /* BarLineChartViewBaseExtension.swift in Sources */,
 				67F3308F1CC0C08800AF4628 /* RNBubbleChart.swift in Sources */,
@@ -1006,6 +981,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1013,9 +989,12 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = iOSV1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = iOSV1;
 				PROVISIONING_PROFILE = "";
@@ -1033,6 +1012,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1040,9 +1020,12 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = iOSV1/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = iOSV1;
 				PROVISIONING_PROFILE = "";
