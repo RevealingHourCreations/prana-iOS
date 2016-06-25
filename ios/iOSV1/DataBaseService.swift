@@ -6,23 +6,24 @@
 //  Copyright © 2016 Facebook. All rights reserved.
 //
 
-/*
-
 import Foundation
 import Firebase
 
 class DataBaseService: NSObject {
   
+    // [START create_database_reference]
   var ref = FIRDatabase.database().reference()
-
+  // [END create_database_reference]
+  
+  var refHandle: FIRDatabaseHandle?
+  var subjectRef: FIRDatabaseReference!
+  
   func storeBreathReadings(readings:Dictionary<String,Double>,
                          activeNadi:String,
                          exhalationDirection:String,
                          activeTatva:String){
   
-    // [START create_database_reference]
-    self.ref = FIRDatabase.database().reference()
-    // [END create_database_reference]
+  
     
     FIRAuth.auth()?.signInAnonymouslyWithCompletion() { (user, error) in
       /* let isAnonymous = user!.anonymous  // true
@@ -51,29 +52,51 @@ class DataBaseService: NSObject {
     let childUpdates = ["/BreathReadings/\(key)": breathReading]
     NSLog("childUpdates:\(childUpdates)")
     ref.updateChildValues(childUpdates)
+  }
+  
+  
+  func addNewSubject(readings:NSDictionary){
+    
+   let key = ref.child("Subjects").childByAutoId().key
+    NSLog("key:\(key)")
 
-  
-  }
-  
-  func addData(){
-  
-  
-  }
-
-  func updateData(){
     
-    
+    let subjectData =    ["uid": 1,
+                         "firstName" : readings["firstName"]!,
+                         "lastName"  :  readings["lastName"]!,
+                         "age"       :  readings["age"]!,
+                         "dailyExercise":  readings["dailyExercise"]!,
+                         "sedataryLifeStyle":  readings["sedataryLifeStyle"]!,
+                         "regularMeals":  readings["regularMeals"]!,
+                         "drinking":  readings["drinking"]!,
+                         "smoking":  readings["smoking"]!,
+                         "avgSleepingTIme":  readings["avgSleepingTIme"]!,
+                         "avgWakeupTIme":  readings["avgWakeupTIme"]!,
+                         "eatNonveg":  readings["eatNonveg"]!,
+                         "enoughSleep":  readings["enoughSleep"]!,
+                         "meditateRegulary":  readings["meditateRegulary"]!,
+                         "hypertension":  readings["hypertension"]!,
+                         "diabetes":  readings["diabetes"]!
+      
+    ]
+    let childUpdates = ["/Subjects/\(key)": subjectData]
+    NSLog("childUpdates:\(childUpdates)")
+    ref.updateChildValues(childUpdates)
   }
   
-  func deleteData(){
+  func getSubjects() -> (NSDictionary){
+      let postKey = ""
+      let postDict = NSDictionary()
+      subjectRef = ref.child("posts").child(postKey)
     
-    
+    // [START post_value_event_listener]
+    refHandle = subjectRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+      let postDict = snapshot.value as! NSDictionary
+      NSLog("Subjects \(postDict)")
+     
+    })
+     return postDict;
+    // [END post_value_event_listener]
   }
   
-  func queryData(){
-  
-  
-  }
-
 }
- */

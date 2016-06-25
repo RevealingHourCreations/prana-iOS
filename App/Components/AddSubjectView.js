@@ -47,10 +47,8 @@ var AddSubjectView = React.createClass({
   onPress: function () {
     // call getValue() to get the values of the form
     var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null
-      console.log(value); // value here is an instance of Person
-      //React.NativeModules.Utility.getUserData(value.firstName);
-      React.NativeModules.Utility.getUserData(value);
+    if (value) { // if validation fails, value will be null    
+      React.NativeModules.Utility.getSubjectData(value);
       this.props.navigator.pop(); 
     }
   
@@ -58,9 +56,11 @@ var AddSubjectView = React.createClass({
 
   render: function() {
     return (
+
       <View style={styles.container}>
-        {/* display */}
-         <StatusBar title="Add New Subject" />   
+        
+        <StatusBar title="Add New Subject" />   
+ 
          <ScrollView
             automaticallyAdjustContentInsets={true}
             style={styles.scrollView}>
@@ -75,6 +75,7 @@ var AddSubjectView = React.createClass({
               </TouchableHighlight>
 
         </ScrollView>   
+        
       </View>
     );
   }
@@ -108,7 +109,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center'
   },
   scrollView: {
-    height: 400,
+    height: 350,
   }
 });
 

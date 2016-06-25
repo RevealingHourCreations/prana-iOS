@@ -20,6 +20,7 @@ var styles = StyleSheet.create({
     paddingLeft: 16,
     paddingTop: 14,
     paddingBottom: 16,
+    flexDirection: 'row'
   },
   liContainer: {
     flex: 2,
@@ -27,6 +28,7 @@ var styles = StyleSheet.create({
   liText: {
     color: '#333',
     fontSize: 16,
+    width: 100
   },
   navbar: {
     alignItems: 'center',
@@ -63,6 +65,15 @@ var styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 16,
   },
+  switchButton: {
+   //justifyContent: 'flex-end',
+   //alignSelf: 'flex-end'
+   
+
+  },
+  subjectRow: {
+   //flexDirection: row
+  }
 })
 
 module.exports = styles

@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "firebase": "^3.0.4",
+    "firebase": "^2.4.2",
     "highcharts": "^4.2.3",
     "react": "^0.14.8",
     "react-highcharts": "^8.1.1",
@@ -15,6 +15,7 @@
     "react-native": "^0.22.2",
     "react-native-chart": "^0.1.14",
     "react-native-drawer": "^2.2.3",
+    "react-native-extended-stylesheet": "^0.2.0",
     "react-native-gifted-spinner": "0.0.4",
     "react-native-google-signin": "^0.6.1",
     "react-native-ios-charts": "^0.2.3",

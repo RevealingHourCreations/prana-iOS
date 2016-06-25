@@ -15,6 +15,7 @@
 
  // RCT_EXTERN_METHOD(getUserData:(NSString *)firstName);
 
-   RCT_EXTERN_METHOD(getUserData:(NSDictionary *)userData);
+   RCT_EXTERN_METHOD(getSubjectData:(NSDictionary *)subjectData);
+   RCT_EXTERN_METHOD(getSubjects: callback: (RCTResponseSenderBlock)callback);
 
 @end

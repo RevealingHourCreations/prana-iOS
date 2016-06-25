@@ -161,14 +161,20 @@ class Utility : NSObject{
     }
   
   
-  @objc func getUserData(userData:NSDictionary)  -> Void {
-    NSLog("User data:at IOS Side: \(userData)")
-  
+  @objc func getSubjectData(subjectData:NSDictionary)  -> Void {
+    NSLog("User data:at IOS Side: \(subjectData)")
+    DataBaseService().addNewSubject(subjectData);
   }
   
 
+  @objc func getSubjects(callback: (NSObject))  -> Void {
+    NSLog("Fetch subjects")
+    let subjects =  DataBaseService().getSubjects();
+//    callback( [[ "name": "Atul"]])
+  }
   
  }
+
 
 
 

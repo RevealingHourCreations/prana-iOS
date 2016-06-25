@@ -7,6 +7,10 @@
 
 var BreathBarChart = require('./App/Components/BreathBarChart');
 
+// app.js
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+
 
 //var AllSensorsBreathBarChart = require('./App/Components/AllSensorsBarChart');
 
@@ -86,6 +90,8 @@ var styles = StyleSheet.create({
   },
 });
 
+// calculate styles
+EStyleSheet.build();
 
 module.exports = iOSV1;
 
