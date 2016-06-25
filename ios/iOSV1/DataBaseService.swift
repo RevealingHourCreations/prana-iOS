@@ -19,9 +19,10 @@ class DataBaseService: NSObject {
   var subjectRef: FIRDatabaseReference!
   
   func storeBreathReadings(readings:Dictionary<String,Double>,
-                         activeNadi:String,
-                         exhalationDirection:String,
-                         activeTatva:String){
+                           activeSubjectKey: String,
+                           activeNadi:String,
+                           exhalationDirection:String,
+                           activeTatva:String){
   
   
     
@@ -35,7 +36,7 @@ class DataBaseService: NSObject {
     let key = ref.child("BreathReadings").childByAutoId().key
     NSLog("key:\(key)")
     
-    let breathReading = ["uid": 1,
+    let breathReading = ["subjectKey": activeSubjectKey,
                          "readingDateTime": readings["readingDateTime"]!,
                          "leftTop":  readings["leftTop"]!,
                          "centerTop":  readings["centerTop"]!,

@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 
 private var breathData = ""
+ var activeSubjectKey = ""
 
 @objc(Utility)
 
@@ -165,13 +166,17 @@ class Utility : NSObject{
     NSLog("User data:at IOS Side: \(subjectData)")
     DataBaseService().addNewSubject(subjectData);
   }
-  
 
-  @objc func getSubjects(callback: (NSObject))  -> Void {
-    NSLog("Fetch subjects")
-    let subjects =  DataBaseService().getSubjects();
-//    callback( [[ "name": "Atul"]])
+  @objc func setActiveSubject(subjectKey:NSString)  -> Void {
+     NSLog("In Set - Active Subject key: \(subjectKey)")
+    activeSubjectKey = subjectKey as String;
+   }
+  
+  func getActiveSubject() -> String {
+    NSLog("In Get - Active Subject key: \(activeSubjectKey)")
+    return activeSubjectKey
   }
+  
   
  }
 

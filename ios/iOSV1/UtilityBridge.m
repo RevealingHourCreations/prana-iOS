@@ -13,9 +13,7 @@
 
 @interface RCT_EXTERN_MODULE(Utility, NSObject)
 
- // RCT_EXTERN_METHOD(getUserData:(NSString *)firstName);
-
    RCT_EXTERN_METHOD(getSubjectData:(NSDictionary *)subjectData);
-   RCT_EXTERN_METHOD(getSubjects: callback: (RCTResponseSenderBlock)callback);
+   RCT_EXTERN_METHOD(setActiveSubject:(NSString *)subjectKey);
 
 @end

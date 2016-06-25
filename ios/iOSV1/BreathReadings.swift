@@ -11,6 +11,7 @@ import Firebase
 
 public class BreathReadings {
   
+    var subjectKey: String = ""
     var readingDateTime : Double = 0
     var leftMiddle : Double = 0
     var rightMiddle : Double = 0
@@ -28,35 +29,40 @@ public class BreathReadings {
   
   func processBreathData(data:NSData!,appBridge: RCTBridge!) -> Void {
   
-    let readings = Utility().convertHexToInt(data)
-   // NSLog("Readings count \(readings.count)")
-    
-    if (readings.count > 0) {
-      
-      let (readingDateTime,leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings)
-    
-       Utility().sendProcessedBreathDataReadings(readingDateTime,
-                                      leftNostrilReading:leftNostrilReading,
-                                      rightNostrilReading: rightNostrilReading,
-                                      activeNadi: activeNadi,
-                                      exhalationDirection: exhalationDirection,
-                                      activeTatva: activeTatva,
-                                      appBridge: appBridge);
- 
-      /*
-      
-      Utility().sendLiveBreathDataReadings(readings,                                        
-                                           activeNadi: activeNadi,
-                                           exhalationDirection: exhalationDirection,
-                                           activeTatva: activeTatva,
-                                           appBridge: appBridge);
-      */
+    let activeSubjectKey = Utility().getActiveSubject()
+     NSLog("In processBreathData - Active Subject key: \(activeSubjectKey)")
 
+    if (activeSubjectKey != ""){
+      let readings = Utility().convertHexToInt(data)
+     // NSLog("Readings count \(readings.count)")
+      
+      if (readings.count > 0) {
+        
+        let (readingDateTime,leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings,activeSubjectKey: activeSubjectKey)
+        
+            Utility().sendProcessedBreathDataReadings(readingDateTime,
+                                                      leftNostrilReading:leftNostrilReading,
+                                                      rightNostrilReading: rightNostrilReading,
+                                                      activeNadi: activeNadi,
+                                                      exhalationDirection: exhalationDirection,
+                                                      activeTatva: activeTatva,
+                                                      appBridge: appBridge);
+   
+        /*
+        
+        Utility().sendLiveBreathDataReadings(readings,                                        
+                                             activeNadi: activeNadi,
+                                             exhalationDirection: exhalationDirection,
+                                             activeTatva: activeTatva,
+                                             appBridge: appBridge);
+        */
+
+       }
     }
 
   }
   
-  func processBreathReadings(readings:Dictionary<String,Double>) -> (Double,Double,Double,String,String,String) {
+  func processBreathReadings(readings:Dictionary<String,Double>, activeSubjectKey: String) -> (Double,Double,Double,String,String,String) {
 
     let readingDateTime = readings["readingDateTime"]
     let leftNostrilReading = getLeftNostrilReading(readings)
@@ -65,80 +71,15 @@ public class BreathReadings {
     let exhalationDirection = getExhalationDirection(readings,activeNadi: activeNadi)
     let activeTatva = getActiveTatva(exhalationDirection)
     
-    /* DataBaseService().storeBreathReadings(readings,
-                                        activeNadi: activeNadi,
-                                        exhalationDirection: exhalationDirection,
-                                        activeTatva: activeTatva )
-   */
+     DataBaseService().storeBreathReadings(readings,
+                                             activeSubjectKey: activeSubjectKey,
+                                             activeNadi: activeNadi,
+                                             exhalationDirection: exhalationDirection,
+                                             activeTatva: activeTatva )
+   
     
     return (readingDateTime!,leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )
     
-  }
-  
-  
-  func addReadingsInFireBase(readings:Dictionary<String,Double>,
-                             activeNadi:String,
-                             exhalationDirection:String,
-                             activeTatva:String ){
-    
-    // [START create_database_reference]
-    self.ref = FIRDatabase.database().reference()
-    // [END create_database_reference]
-    
-    FIRAuth.auth()?.signInAnonymouslyWithCompletion() { (user, error) in
-     /* let isAnonymous = user!.anonymous  // true
-      let uid = user!.uid
-      NSLog("User id:\(uid)")
-      NSLog("Is Anonymous:\(isAnonymous)")*/
-    }
-    
-    let key = ref.child("BreathReadings").childByAutoId().key
-    NSLog("key:\(key)")
-
-    let breathReading = ["uid": 1,
-                "readingDateTime": readings["readingDateTime"]!,
-                "leftTop":  readings["leftTop"]!,
-                 "centerTop":  readings["centerTop"]!,
-                 "rightTop":  readings["rightTop"]!,
-                 "leftBottom":  readings["leftBottom"]!,
-                 "leftMiddle":  readings["leftMiddle"]!,
-                 "rightMiddle":  readings["rightMiddle"]!,
-                 "rightBottom":  readings["rightBottom"]!,
-                 "activeNadi":  activeNadi,
-                 "exhalationDirection": exhalationDirection,
-                 "activeTatva":  activeTatva
-                 
-                ]
-    let childUpdates = ["/BreathReadings/\(key)": breathReading]
-    NSLog("childUpdates:\(childUpdates)")
-    ref.updateChildValues(childUpdates)
-
-    /*
-    
-    // Get the default Realm
-    let realm = try! Realm()
-    // NSLog("Realm Path \(realm.configuration.fileURL)")
-    
-    let newReading = BreathReadings()
-    
-    newReading.readingDateTime = readings["readingDateTime"]!
-    newReading.leftTop = readings["leftTop"]!
-    newReading.centerTop = readings["centerTop"]!
-    newReading.rightTop = readings["rightTop"]!
-    newReading.leftBottom = readings["leftBottom"]!
-    newReading.leftMiddle = readings["leftMiddle"]!
-    newReading.rightMiddle = readings["rightMiddle"]!
-    newReading.rightBottom = readings["rightBottom"]!
-    
-    newReading.activeNadi = activeNadi
-    newReading.exhalationDirection = exhalationDirection
-    newReading.activeTatva = activeTatva
-    
-    try! realm.write {
-      realm.add(newReading)
-    }
-    
- */
   }
   
   

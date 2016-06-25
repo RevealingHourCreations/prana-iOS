@@ -80,11 +80,12 @@ constructor(props) {
  renderSubject = (item) =>  {
 
       const onPress = () => {
+        React.NativeModules.Utility.setActiveSubject(item._key);
         this.setState({activeSubject: item._key});    
       };
 
       const onSwitchChange = () => {
-
+        React.NativeModules.Utility.setActiveSubject(item._key);
         this.setState({activeSubject: item._key});      
        };
  
