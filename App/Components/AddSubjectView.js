@@ -10,6 +10,10 @@ import React, {
   NativeModules
 } from 'react-native'
 
+const styles = require('../styles.js')
+const ESStyles = require('../ESStyles.js')
+const constants = styles.constants;
+
 // For sending data to Native Apps.
 // Utility is Exported Module from Native App. Its defined in Utility.swft
 
@@ -39,7 +43,8 @@ var User = t.struct({
 
 });
 
-var options = {}; 
+var options = {
+  auto: 'placeholders'}; 
 
 
 var AddSubjectView = React.createClass({
@@ -54,16 +59,37 @@ var AddSubjectView = React.createClass({
   
   },
 
+  goBack: function () {   
+      this.props.navigator.pop(); 
+  },
+
+  componentDidMount: function (){
+
+   this.refs.form.getComponent('firstName').refs.input.focus();
+  },
+
+
+
   render: function() {
     return (
 
-      <View style={styles.container}>
+      <View style={styles.formContainer}>
         
-        <StatusBar title="Add New Subject" />   
+         <View style={styles.statusBar}>
+                  <TouchableHighlight
+                    underlayColor={'#FFFF'}
+                    onPress={this.goBack}>
+                       <Text style={styles.backButton}>  &lt; </Text>
+                        
+                  </TouchableHighlight>
+                  <Text style={styles.statusBarTitle}> Add New Subject </Text>
+        </View>      
+        
  
          <ScrollView
             automaticallyAdjustContentInsets={true}
-            style={styles.scrollView}>
+            rejectResponderTermination={false}
+            style={ESStyles.scrollView}>
 
              <Form
                ref="form"
@@ -81,36 +107,10 @@ var AddSubjectView = React.createClass({
   }
 });
 
+/*
 var styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 30,
-    alignSelf: 'center',
-    marginBottom: 30
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  },
-  scrollView: {
-    height: 350,
-  }
-});
+  
+  
+});*/
 
 module.exports = AddSubjectView;

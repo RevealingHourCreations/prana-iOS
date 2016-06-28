@@ -62,7 +62,7 @@ class DataBaseService: NSObject {
     NSLog("key:\(key)")
 
     
-    let subjectData =    ["uid": 1,
+    let subjectData =    [
                          "firstName" : readings["firstName"]!,
                          "lastName"  :  readings["lastName"]!,
                          "age"       :  readings["age"]!,
@@ -78,8 +78,8 @@ class DataBaseService: NSObject {
                          "meditateRegulary":  readings["meditateRegulary"]!,
                          "hypertension":  readings["hypertension"]!,
                          "diabetes":  readings["diabetes"]!
-      
-    ]
+                        ]
+    
     let childUpdates = ["/Subjects/\(key)": subjectData]
     NSLog("childUpdates:\(childUpdates)")
     ref.updateChildValues(childUpdates)

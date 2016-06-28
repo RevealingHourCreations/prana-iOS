@@ -17,7 +17,7 @@ class ListItem extends React.Component {
     return (
       <TouchableHighlight onPress={this.props.onPress}>
         <View style={styles.li}>
-          <Text style={styles.liText}>{this.props.item.firstName} </Text>        
+          <Text style={styles.liText}>{this.props.item.subjectName} </Text>        
 
            <Switch
             onValueChange={ this.props.onSwitchChange }

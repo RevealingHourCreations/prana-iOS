@@ -21,8 +21,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		35E8E89A64464DBD8F2773B2 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F283694150024A3383CECF4C /* libc++.tbd */; };
-		57016C6A473F46FC9A9C9668 /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC753248FA7745ACB8ADA739 /* libRealmReact.a */; };
 		6716C4AE1D0FE4010074AAFD /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6716C4AD1D0FE4010074AAFD /* Charts.framework */; };
 		6716C4BB1D0FE4060074AAFD /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6716C4BA1D0FE4060074AAFD /* SwiftyJSON.framework */; };
 		671BC8EC1D06F6320057CBE8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 671BC8EB1D06F6320057CBE8 /* CFNetwork.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -255,7 +253,6 @@
 		67F330AB1CC0CA8700AF4628 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		BC753248FA7745ACB8ADA739 /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		D09867C032B3C66C1DFE9EB8 /* Pods_iOSV1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSV1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F283694150024A3383CECF4C /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		F72A906A093C4D81B50B3227 /* RealmReact.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RealmReact.xcodeproj; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; };
@@ -290,8 +287,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				AF507CCE217D43666714AD9B /* Pods_iOSV1.framework in Frameworks */,
-				57016C6A473F46FC9A9C9668 /* libRealmReact.a in Frameworks */,
-				35E8E89A64464DBD8F2773B2 /* libc++.tbd in Frameworks */,
 				ADE450FF1A624DD793FE01E7 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

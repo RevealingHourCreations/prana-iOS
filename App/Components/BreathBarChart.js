@@ -7,7 +7,8 @@ var {
   View,
   StyleSheet,
   NativeAppEventEmitter,
-  Text
+  Text,
+  Alert
 } = React;
 
 
@@ -86,6 +87,14 @@ var BreathBarChart = React.createClass({
 
   componentDidMount: function() {
      this.realTimeBreathReading();   
+
+     Alert.alert(
+             "Please Select Subject. ",
+             "Swipe Right to select subject.",
+              [
+                 {text: 'OK', onPress: () => console.log('OK Pressed!')},
+              ]
+          );
   },
 
    componentWillUnmount: function(){

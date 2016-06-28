@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
   liText: {
     color: '#333',
     fontSize: 16,
-    width: 100
+    width: 150
   },
   navbar: {
     alignItems: 'center',
@@ -65,15 +65,54 @@ var styles = StyleSheet.create({
     paddingTop: 14,
     paddingBottom: 16,
   },
-  switchButton: {
-   //justifyContent: 'flex-end',
-   //alignSelf: 'flex-end'
-   
+
+  formContainer: {
+    justifyContent: 'center',
+    marginTop: 0,
+    padding: 10,
+    backgroundColor: '#ffffff',
+  },
+  
+  title: {
+    fontSize: 30,
+    alignSelf: 'center',
+    marginBottom: 30
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+
+  backButton: {
+   color: '#444',
+   fontSize: 18,
+  },
+  
+  statusBarTitle: {
+    color: '#444',
+    fontSize: 16,
+    fontWeight: "500",
+    paddingLeft: 40
+  },
+  
+  statusBar: {
+    paddingTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 20
 
   },
-  subjectRow: {
-   //flexDirection: row
-  }
 })
 
 module.exports = styles

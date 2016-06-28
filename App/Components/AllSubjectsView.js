@@ -1,16 +1,17 @@
 
-// TODO: Fix bind - http://moduscreate.com/how-to-use-es6-arrow-functions-with-react-native/
-
-var React = require('react-native');
+const React = require('react');
+var ReactNative = require('react-native');
 
 const ActionButton = require('./ActionButton');
 const AddSubjectView = require('./AddSubjectView');
 const ListItem = require('./ListItem');
 const styles = require('../styles.js')
+const ESStyles = require('../ESStyles.js')
 const StatusBar = require('./StatusBar');
 const constants = styles.constants;
 const Firebase = require('firebase');
 const FirebaseUrl = 'https://prana-4be90.firebaseio.com';
+
 
 
 var {
@@ -22,8 +23,9 @@ var {
   NativeModules,
   NativeAppEventEmitter,
   AlertIOS,
-  Component
-} = React;
+  ActivityIndicatorIOS,
+  Component,
+} = ReactNative;
 
 var Utility = require('NativeModules');
 
@@ -39,7 +41,8 @@ constructor(props) {
     dataSource:  ds,
     subjectsRef: this.getFBRef().child("Subjects"),
     activeSubject: "",
-    activeSwitch: false
+    activeSwitch: false,
+    activityInprogress: true,
   }
 }
 
@@ -55,13 +58,14 @@ constructor(props) {
 			      var subjects = [];
 			      snap.forEach((child) => {
 			        subjects.push({
-			          firstName: child.val().firstName,
+			          subjectName: child.val().firstName + " " + child.val().lastName,
 			          _key: child.key()
 			        });
 			      });
 
 			      this.setState({
-			        dataSource: this.state.dataSource.cloneWithRows(subjects)
+			        dataSource: this.state.dataSource.cloneWithRows(subjects),
+              activityInprogress: false
 			      });
 
          });
@@ -80,31 +84,45 @@ constructor(props) {
  renderSubject = (item) =>  {
 
       const onPress = () => {
-        React.NativeModules.Utility.setActiveSubject(item._key);
-        this.setState({activeSubject: item._key});    
+        ReactNative.NativeModules.Utility.setActiveSubject(item._key);
+        this.setState({activeSubject: item._key});  
+        this.props.closeDrawer
       };
 
       const onSwitchChange = () => {
-        React.NativeModules.Utility.setActiveSubject(item._key);
-        this.setState({activeSubject: item._key});      
+        ReactNative.NativeModules.Utility.setActiveSubject(item._key);
+        this.setState({activeSubject: item._key});   
+        this.props.closeDrawer   
        };
  
 
     return (
-      <ListItem item={item} onPress={onPress} onSwitchChange={onSwitchChange} activeSubject={this.state.activeSubject}/>
+     
+        <ListItem item={item} 
+                  onPress={onPress} 
+                  onSwitchChange={onSwitchChange} 
+                  activeSubject={this.state.activeSubject}/>
     );
   }
 
- render () {
-    return (
-      
-       <View style={styles.container}>
+ render = () => {
 
-            <StatusBar title="Prana - Subjects" />   
+   var activityIndicator  = this.state.activityInprogress ? <ActivityIndicatorIOS
+                                                                  style={ESStyles.activityIndicator}
+                                                                  animating={this.state.activityInprogress}
+                                                                  size={'small'}
+                                                                  color={'black'}/>   : null;
+    return (
+        
+       <View style={styles.container}>  
+            <StatusBar title="Prana - Subjects" />       
+
+              {activityIndicator}
 
              <ListView
                   dataSource={this.state.dataSource}
                   renderRow={this.renderSubject} />
+
 
              <View style={styles.action}>
                   <TouchableHighlight
@@ -113,7 +131,8 @@ constructor(props) {
                        <Text style={styles.actionText}>Add New Subject</Text>
                   </TouchableHighlight>
              </View>       
-            
+             
+
         </View>
     );
   }

@@ -27,6 +27,8 @@ import React, {
 import Drawer from 'react-native-drawer'
 import ControlPanel from './App/Components/ControlPanel'
 
+
+
 class iOSV1 extends React.Component {
   
  state={
@@ -68,7 +70,7 @@ class iOSV1 extends React.Component {
         closedDrawerOffset={() => 0}
         panOpenMask={0.2}
         negotiatePan
-        >
+        >        
 
            <NavigatorIOS
             style={styles.container}
