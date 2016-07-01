@@ -177,6 +177,11 @@ class Utility : NSObject{
     return activeSubjectKey
   }
   
+  func generateReport(subjectKey:NSString) -> Void {
+    NSLog("In generateReport -  Subject key: \(subjectKey)")
+    BreathReadings().generateSubjectReport(subjectKey as String)
+  
+  }
   
  }
 

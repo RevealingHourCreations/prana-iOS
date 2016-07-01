@@ -25,9 +25,20 @@ public class BreathReadings {
     var activeTatva : String = ""
   
   
-  var ref = FIRDatabase.database().reference()
+  //var ref = FIRDatabase.database().reference()
   
   func processBreathData(data:NSData!,appBridge: RCTBridge!) -> Void {
+    
+   
+  /*
+    NSLog("Authenticating user")
+    FIRAuth.auth()?.signInAnonymouslyWithCompletion() { (user, error) in
+      let uid = user!.uid
+      NSLog("User id:\(uid)")
+      NSLog("Error:\(error)")
+    
+    }*/
+    
   
     let activeSubjectKey = Utility().getActiveSubject()
      NSLog("In processBreathData - Active Subject key: \(activeSubjectKey)")
@@ -71,11 +82,14 @@ public class BreathReadings {
     let exhalationDirection = getExhalationDirection(readings,activeNadi: activeNadi)
     let activeTatva = getActiveTatva(exhalationDirection)
     
+    /*
      DataBaseService().storeBreathReadings(readings,
                                              activeSubjectKey: activeSubjectKey,
                                              activeNadi: activeNadi,
                                              exhalationDirection: exhalationDirection,
                                              activeTatva: activeTatva )
+ 
+    */
    
     
     return (readingDateTime!,leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )
@@ -371,6 +385,26 @@ public class BreathReadings {
     
     return activeTatva
     
+  }
+  
+  
+  func generateSubjectReport(subjectKey:String) {
+    
+    /*   Query  - start time and end time and subject key
+         get Times Ida or Pingala active
+         get Direction
+     
+     - breath and mind connection
+     - Left brain and Right brain connection
+     - Show ideal activities to be done for active nostrils
+     - Future efforts.
+     - Meditation exercises 
+ 
+ 
+     
+     */
+    
+  
   }
   
 }

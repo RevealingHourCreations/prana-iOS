@@ -5,27 +5,18 @@ const styles = require('../styles.js')
 import React, {
   Component,
   PropTypes,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  TouchableHighlight,
-  View,
-  ListView,
   Navigator,
-  NativeModules
 } from 'react-native'
 
 var ControlPanel = React.createClass({
 
   navigatorRenderScene: function(route, navigator) {
     switch (route.id) {
-      case 1:            
+      case 'All Subjects':            
         return (<AllSubjectsView navigator={navigator} closeDrawer={this.props.closeDrawer}   title="Prana - All Subjects"/>);
-      case 2:
+      case 'New Subject':
         return (<AddSubjectView navigator={navigator} closeDrawer={this.props.closeDrawer}  title="Prana - Add New Subject" />);
     }
-
   },
 
   render() {
@@ -33,7 +24,7 @@ var ControlPanel = React.createClass({
 
            <Navigator
                style={styles.container}
-               initialRoute={{id: 1, }}
+               initialRoute={{id: 'All Subjects', }}
                renderScene={this.navigatorRenderScene}/>
     )
   }

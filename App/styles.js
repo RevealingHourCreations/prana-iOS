@@ -7,6 +7,8 @@ const constants = {
 var styles = StyleSheet.create({
   container: {
     backgroundColor: '#f2f2f2',
+    alignItems: 'stretch',
+    backgroundColor: 'white',
     flex: 1,
   },
   listview: {
@@ -88,7 +90,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#48BBEC',
     borderColor: '#48BBEC',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
@@ -97,6 +99,7 @@ var styles = StyleSheet.create({
   backButton: {
    color: '#444',
    fontSize: 18,
+   marginLeft: 10
   },
   
   statusBarTitle: {
@@ -107,12 +110,30 @@ var styles = StyleSheet.create({
   },
   
   statusBar: {
-    paddingTop: 20,
+    paddingTop: 30,
     flexDirection: 'row',
     alignItems: 'center',
     paddingBottom: 20
 
   },
+  chart: {
+    flex: 1
+  },
+  baseText: {
+    fontFamily: 'Cochin',
+  },
+  titleText: {
+    paddingLeft: 5,
+    fontSize: 18,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    color: "#696969",
+    fontFamily: 'Cochin'
+  },
+  nadiTitle:{
+    color: '#1E90FF',
+    fontFamily: 'Cochin'
+  }
 })
 
 module.exports = styles

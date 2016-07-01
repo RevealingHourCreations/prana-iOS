@@ -6,6 +6,7 @@
 //  Copyright © 2016 Facebook. All rights reserved.
 //
 
+
 import Foundation
 import Firebase
 
@@ -26,12 +27,7 @@ class DataBaseService: NSObject {
   
   
     
-    FIRAuth.auth()?.signInAnonymouslyWithCompletion() { (user, error) in
-      /* let isAnonymous = user!.anonymous  // true
-       let uid = user!.uid
-       NSLog("User id:\(uid)")
-       NSLog("Is Anonymous:\(isAnonymous)")*/
-    }
+  
     
     let key = ref.child("BreathReadings").childByAutoId().key
     NSLog("key:\(key)")

@@ -14,6 +14,8 @@ const styles = require('../styles.js')
 const ESStyles = require('../ESStyles.js')
 const constants = styles.constants;
 
+
+
 // For sending data to Native Apps.
 // Utility is Exported Module from Native App. Its defined in Utility.swft
 
@@ -23,8 +25,8 @@ var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
 
-// User Model
-var User = t.struct({
+// Subject Model
+var Subject = t.struct({
   firstName: t.String,             
   lastName: t.String,  
   age: t.Number,
@@ -93,7 +95,7 @@ var AddSubjectView = React.createClass({
 
              <Form
                ref="form"
-               type={User}
+               type={Subject}
                options={options}/>
 
               <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
@@ -107,10 +109,5 @@ var AddSubjectView = React.createClass({
   }
 });
 
-/*
-var styles = StyleSheet.create({
-  
-  
-});*/
 
 module.exports = AddSubjectView;

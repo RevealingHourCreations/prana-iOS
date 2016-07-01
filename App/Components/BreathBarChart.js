@@ -2,13 +2,20 @@
 var React  = require('react-native');
 var { BarChart } = require('react-native-ios-charts');
 
+const styles = require('../styles.js')
+const constants = styles.constants;
+const StatusBar = require('./StatusBar');
+var Utility = require('NativeModules');
+
 var {
    
   View,
   StyleSheet,
   NativeAppEventEmitter,
   Text,
-  Alert
+  Alert,
+  TouchableHighlight,
+  Image
 } = React;
 
 
@@ -17,9 +24,52 @@ function sleepFor( sleepDuration ){
     while(new Date().getTime() < now + sleepDuration){ /* do nothing */ } 
 }
 
-
 var BreathBarChart = React.createClass({
 
+  getInitialState: function () {
+      
+        return{
+          leftNostrilData: [0],
+          rightNostrilData: [0],
+          activeNadi:  "",
+          activeTatva:  "",
+          exhalationDirection: "",
+          labelsData: ["i"],
+          startRecording: false
+       };
+
+
+    
+  },
+
+  toggleRecordingAction: function(){
+
+    if(this.state.startRecording == true){
+       this.setState({
+        startRecording: false
+     })  
+     this.props.navigator.push({id: 'Report'});
+
+    }else{
+     this.setState({
+        startRecording: true
+     })
+
+    this.realTimeBreathReading();  
+
+  // Added for testing remove
+     this.setState({
+
+          leftNostrilData: [30],
+          rightNostrilData: [30],
+          activeNadi:  "",
+          activeTatva:  "",
+          exhalationDirection: "",
+          labelsData: ["i"],
+      })
+     
+   }
+  },
 
 // Function to load live data from BLE
 
@@ -68,33 +118,8 @@ var BreathBarChart = React.createClass({
       
   },
 
-
-
-  getInitialState: function () {
-      
-        return{
-          leftNostrilData: [30],
-          rightNostrilData: [30],
-          activeNadi:  "",
-          activeTatva:  "",
-          exhalationDirection: "",
-          labelsData: ["i"]
-       };
-
-
-    
-  },
-
   componentDidMount: function() {
-     this.realTimeBreathReading();   
-
-     Alert.alert(
-             "Please Select Subject. ",
-             "Swipe Right to select subject.",
-              [
-                 {text: 'OK', onPress: () => console.log('OK Pressed!')},
-              ]
-          );
+    
   },
 
    componentWillUnmount: function(){
@@ -152,51 +177,43 @@ var BreathBarChart = React.createClass({
       }
     };
    
-    return (
+      if(this.state.startRecording == true){
+          recordingText = "Stop Recording & show report."
+      }else{
+         recordingText = "Start Recording."
+      }
       
+    return (
       <View style={styles.container}>
-        <BarChart config={config} style={styles.chart}/>
-        <Text style={styles.baseText}>
+       <View style={styles.statusBar}>
+                  <TouchableHighlight
+                    underlayColor={'#FFFF'}
+                    onPress={this.props.openDrawer}>
+                       <Text style={styles.backButton}>  
+                       <Image
+                            style={styles.icon}
+                            source={require('../Images/menu-bars.png')}/> 
+                        </Text>
+                        
+                  </TouchableHighlight>
+                  <Text style={styles.statusBarTitle}> Prana - Feel your Breath! </Text>
+        </View>     
+
+
+        <BarChart config={config} style={styles.chart}/>       
+        
             <Text style={styles.titleText} >
-                Active Nadi: <Text style={styles.nadiTitle}>  {this.state.activeNadi + '\n'} </Text>
-           </Text> 
-       </Text>
+                    Active Nadi: <Text style={styles.nadiTitle}>  {this.state.activeNadi + '\n'} </Text>
+            </Text> 
+         
+            <TouchableHighlight style={styles.button} onPress={this.toggleRecordingAction} underlayColor='#99d9f4'>
+                <Text style={styles.buttonText}> {recordingText}</Text>
+            </TouchableHighlight>
+       
       </View>
     );
   }
 });
-
-
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: 'white',
-    paddingTop: 40,
-    paddingBottom: 2,
-    paddingLeft: 10,
-    paddingRight: 10
-  },
-  chart: {
-    flex: 1
-  },
-  baseText: {
-    fontFamily: 'Cochin',
-  },
-  titleText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    color: "#696969"
-  },
-  nadiTitle:{
-    color: '#1E90FF'
-  }
-});
-
 
 
 module.exports = BreathBarChart;

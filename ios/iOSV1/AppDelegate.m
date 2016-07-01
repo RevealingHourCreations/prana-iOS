@@ -47,7 +47,7 @@
    * simulator in the "Release" build configuration.
    */
 
-  // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+   // jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   
   
    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -63,6 +63,16 @@
   
   // Use Firebase library to configure APIs
   [FIRApp configure];
+  //[FIRDatabase database].persistenceEnabled = YES;
+/*
+  [[FIRAuth auth] signInWithEmail:@"atul@revealinghour.in"
+                         password:@"Buddha"
+                       completion:^(FIRUser *user, NSError *error) {
+                       
+                          NSLog(@"User id:%@)", user.uid);
+                       
+                       
+                       }];*/
   
   // Scan and Connect to BreathSensor BTLE.
  
