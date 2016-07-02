@@ -10,7 +10,7 @@ const ESStyles = require('../ESStyles.js')
 const StatusBar = require('./StatusBar');
 const constants = styles.constants;
 const Firebase = require('firebase');
-const { connect } = require('mobx-connect')
+import {observer} from 'mobx-react/native'
 
 
 var {
@@ -41,7 +41,8 @@ Firebase.initializeApp(config);
 // Get a reference to the database service
 var database = Firebase.database();
 
-@connect 
+
+@observer
 class AllSubjectsView extends Component{
 
   constructor(props) {
@@ -58,29 +59,23 @@ class AllSubjectsView extends Component{
    
   }
 
-   setSetting(key,value) {
-        const { settings} = this.context.state
-        settings[key] = value
-    }
-
  authenticateFirebase = () => {
   console.log("Authenticating firebase")
   Firebase.auth().signInAnonymously().catch(function(error) {
-    // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
 
     console.log(errorMessage)
-  // ...
+
   });
 
+  // TODO Find a better way to do this.
 
   var thisRef = this
-  // Listening for auth state changes.
+
 
   Firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        // User is signed in.
         var isAnonymous = user.isAnonymous;
         var uid = user.uid;
         console.log("Anno. user id:")
@@ -89,8 +84,6 @@ class AllSubjectsView extends Component{
         return true
 
       } else {
-        // User is signed out.
-        // ...
         console.log("Anno. user is NOT logged in")
         return false
       }
@@ -140,19 +133,15 @@ loadSubjects = (subjects) => {
 
  renderSubject = (item) =>  {
 
-      const onPress = () => {
+      const onPress = () => {      
         ReactNative.NativeModules.Utility.setActiveSubject(item._key);
-        console.log(this.context)
-        //this.context.store.setActiveSubject(item._key)
-     
+        this.props.store.setActiveSubject( item.subjectName , item._key)
         this.setState({activeSubject: item._key});          
       };
 
       const onSwitchChange = () => {
-        ReactNative.NativeModules.Utility.setActiveSubject(item._key);
-         console.log(this.props)
-        this.props.context.store.setActiveSubject(item._key)
-     
+        ReactNative.NativeModules.Utility.setActiveSubject(item._key);       
+        this.props.store.setActiveSubject( item.subjectName  , item._key)
         this.setState({activeSubject: item._key});          
        };
  
@@ -168,7 +157,6 @@ loadSubjects = (subjects) => {
 
  render = () => {
 
-  const { settings } = this.context.state
 
    var activityIndicator  = this.state.activityInprogress ? <ActivityIndicatorIOS
                                                                   style={ESStyles.activityIndicator}
@@ -213,11 +201,6 @@ loadSubjects = (subjects) => {
     );
   }
 };
-
-
-//export default connect(AllSubjectsView)
-// @connect
-
 
 module.exports = AllSubjectsView;
 

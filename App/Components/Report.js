@@ -10,7 +10,9 @@ const { StyleSheet,
         ScrollView} = React;
 
 import Communications from 'react-native-communications';
+import {observer} from 'mobx-react/native'
 
+@observer
 class Report extends React.Component {
 
   emailReport = () => {
@@ -26,6 +28,9 @@ class Report extends React.Component {
 
 
   render = () => {
+    console.log(this.props.store.activeSubject)
+    activeSubjectName = this.props.store.activeSubject.fullName
+
     return (
       <View style={styles.container}>               
   
@@ -36,7 +41,7 @@ class Report extends React.Component {
                   <Text style={styles.backButton}>&lt; </Text>
                   </TouchableHighlight>
               
-                  <Text style={styles.statusBarTitle}>Report </Text>
+                  <Text style={styles.statusBarTitle}>Report of {activeSubjectName} </Text>
         </View>      
          
  
@@ -50,8 +55,6 @@ class Report extends React.Component {
               </TouchableHighlight>
 
         </ScrollView>   
-
-
 
       </View>
     );

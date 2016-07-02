@@ -1,0 +1,12 @@
+TODO:
+-1 integrate Mox-connect
+0. report generation
+1. Add email/password ssystem per user
+2. show only subjects as per user
+3. Generate report for active Subject
+4. Move all Firebase code to React
+5. Keep only BLE dependency on Native
+6. Refactor and cleanup code
+7. remove unwanted node modules
+8. improve performance of the app
+9. test the integration
