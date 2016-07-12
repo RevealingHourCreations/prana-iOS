@@ -15,12 +15,14 @@ var ControlPanel = React.createClass({
       case 'All Subjects':            
         return (<AllSubjectsView navigator={navigator} 
                                  closeDrawer={this.props.closeDrawer} 
-                                 store = {this.props.store}  
+                                 store = {this.props.store} 
+                                 databaseRef = {this.props.databaseRef} 
                                  title="Prana - All Subjects"/>);
       case 'New Subject':
         return (<AddSubjectView navigator={navigator} 
                                closeDrawer={this.props.closeDrawer}  
                                store = {SubjectStore} 
+                               databaseRef = {this.props.databaseRef}
                                title="Prana - Add New Subject" />);
     }
   },

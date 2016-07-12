@@ -82,14 +82,14 @@ public class BreathReadings {
     let exhalationDirection = getExhalationDirection(readings,activeNadi: activeNadi)
     let activeTatva = getActiveTatva(exhalationDirection)
     
-    /*
+    
      DataBaseService().storeBreathReadings(readings,
                                              activeSubjectKey: activeSubjectKey,
                                              activeNadi: activeNadi,
                                              exhalationDirection: exhalationDirection,
                                              activeTatva: activeTatva )
  
-    */
+    
    
     
     return (readingDateTime!,leftNostrilReading,rightNostrilReading, activeNadi,exhalationDirection, activeTatva )

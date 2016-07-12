@@ -6,9 +6,8 @@ const constants = {
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f2f2f2',
     alignItems: 'stretch',
-    backgroundColor: 'white',
+    backgroundColor: '#FFF',
     flex: 1,
   },
   listview: {
@@ -73,8 +72,9 @@ var styles = StyleSheet.create({
     marginTop: 0,
     padding: 10,
     backgroundColor: '#ffffff',
+    flex: 1,
   },
-  
+
   title: {
     fontSize: 30,
     alignSelf: 'center',
@@ -99,22 +99,22 @@ var styles = StyleSheet.create({
   backButton: {
    color: '#444',
    fontSize: 18,
-   marginLeft: 10
+   marginLeft: 10,
+   alignSelf: 'flex-start'
   },
-  
+
   statusBarTitle: {
     color: '#444',
     fontSize: 16,
     fontWeight: "500",
-    paddingLeft: 40
+    alignSelf: 'center'
+
   },
-  
   statusBar: {
     paddingTop: 30,
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingBottom: 20
-
+    paddingBottom: 20,
+    justifyContent: 'center',
   },
   chart: {
     flex: 1
@@ -130,9 +130,20 @@ var styles = StyleSheet.create({
     color: "#696969",
     fontFamily: 'Cochin'
   },
-  nadiTitle:{
+  normalText: {
+    paddingLeft: 5,
+    fontSize: 14,
+    justifyContent: 'center',
+    color: "#696969",
+    fontFamily: 'Cochin'
+  },
+  nadiTitle: {
     color: '#1E90FF',
     fontFamily: 'Cochin'
+  },
+  notice: {
+    fontSize: 10,
+    color: 'grey'
   }
 })
 

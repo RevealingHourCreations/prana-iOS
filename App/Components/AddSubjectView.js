@@ -27,8 +27,8 @@ var Form = t.form.Form;
 
 // Subject Model
 var Subject = t.struct({
-  firstName: t.String,             
-  lastName: t.String,  
+  firstName: t.String,
+  lastName: t.String,
   age: t.Number,
   dailyExercise: t.Boolean,
   sedataryLifeStyle: t.Boolean,
@@ -46,7 +46,7 @@ var Subject = t.struct({
 });
 
 var options = {
-  auto: 'placeholders'}; 
+  auto: 'placeholders'};
 
 
 var AddSubjectView = React.createClass({
@@ -54,15 +54,16 @@ var AddSubjectView = React.createClass({
   onPress: function () {
     // call getValue() to get the values of the form
     var value = this.refs.form.getValue();
-    if (value) { // if validation fails, value will be null    
+    console.log(value)
+    if (value) { // if validation fails, value will be null
       React.NativeModules.Utility.getSubjectData(value);
-      this.props.navigator.pop(); 
+      this.props.navigator.pop();
     }
-  
+
   },
 
-  goBack: function () {   
-      this.props.navigator.pop(); 
+  goBack: function () {
+      this.props.navigator.pop();
   },
 
   componentDidMount: function (){
@@ -76,18 +77,18 @@ var AddSubjectView = React.createClass({
     return (
 
       <View style={styles.formContainer}>
-        
+
          <View style={styles.statusBar}>
                   <TouchableHighlight
                     underlayColor={'#FFFF'}
                     onPress={this.goBack}>
                        <Text style={styles.backButton}>  &lt; </Text>
-                        
+
                   </TouchableHighlight>
                   <Text style={styles.statusBarTitle}> Add New Subject </Text>
-        </View>      
-        
- 
+        </View>
+
+
          <ScrollView
             automaticallyAdjustContentInsets={true}
             rejectResponderTermination={false}
@@ -102,8 +103,8 @@ var AddSubjectView = React.createClass({
                 <Text style={styles.buttonText}>Save</Text>
               </TouchableHighlight>
 
-        </ScrollView>   
-        
+        </ScrollView>
+
       </View>
     );
   }

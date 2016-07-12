@@ -80,6 +80,7 @@ class DataBaseService: NSObject {
     NSLog("childUpdates:\(childUpdates)")
     ref.updateChildValues(childUpdates)
   }
+ 
   
   func getSubjects() -> (NSDictionary){
       let postKey = ""
