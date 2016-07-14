@@ -18,10 +18,11 @@ private var breathData = ""
 class Utility : NSObject{
   
   
+  
   func convertHexToInt(data:NSData!) -> Dictionary<String,Double>{
     
     // NSLog("Data from BLE: \(data)")
-  
+    
     var breathReadings = [String: Double]()
     
     let (validBreathData,dataString) = getBreathData(data)
@@ -30,18 +31,12 @@ class Utility : NSObject{
       
       // Reset Breath Data
       breathData = ""
-      
+
+      NSLog("Count:\(dataString.utf8.count)")
       breathReadings["readingDateTime"] = getReadingDateTime(dataString)
       
-      // 60034.6133.7131.6742.0138.7743.2940.7126.9527.2929.2927.5327.6729.6530.03,
-      // 1  
-      // Time: 600
-      // Temp:     34.61 33.71 31.67 42.01 38.77 43.29 40.71
-      // Ambience: 26.95 27.29 29.29 27.53 27.67 29.65 30.03,
       
-      
-      
-      let tempString = dataString[dataString.startIndex.advancedBy(dataString.utf8.count - 36) ..< dataString.endIndex ]
+      let tempString = dataString[dataString.startIndex.advancedBy(3) ..< dataString.endIndex.advancedBy(-36) ]
       NSLog("Temp String:\(tempString)")
       
       let leftTop = tempString[tempString.startIndex ..< tempString.endIndex.advancedBy(-31) ]
@@ -65,13 +60,42 @@ class Utility : NSObject{
       let rightBottom = tempString[tempString.startIndex.advancedBy(30) ..< tempString.endIndex.advancedBy(-1)]
       breathReadings["rightBottom"] = Double(rightBottom)
       
+
+      
+      
+      
+      let ambientTempString = dataString[dataString.startIndex.advancedBy(38) ..< dataString.endIndex.advancedBy(-1) ]
+      NSLog("Ambient Temp String:\(ambientTempString)")
+      
+      let leftTopAmbient = ambientTempString[ambientTempString.startIndex ..< ambientTempString.endIndex.advancedBy(-31) ]
+      breathReadings["leftTopAmbient"] = Double(leftTopAmbient)!
+      
+      let centerTopAmbient = ambientTempString[ambientTempString.startIndex.advancedBy(5) ..< ambientTempString.endIndex.advancedBy(-26) ]
+      breathReadings["centerTopAmbient"] = Double(centerTopAmbient)!
+      
+      let rightTopAmbient = ambientTempString[ambientTempString.startIndex.advancedBy(10) ..< ambientTempString.endIndex.advancedBy(-21) ]
+      breathReadings["rightTopAmbient"] =  Double(rightTopAmbient)!
+      
+      let leftBottomAmbient = ambientTempString[ambientTempString.startIndex.advancedBy(15) ..< ambientTempString.endIndex.advancedBy(-16) ]
+      breathReadings["leftBottomAmbient"] = Double(leftBottomAmbient)!
+      
+      let leftMiddleAmbient = ambientTempString[ambientTempString.startIndex.advancedBy(20) ..< ambientTempString.endIndex.advancedBy(-11)]
+      breathReadings["leftMiddleAmbient"] = Double(leftMiddleAmbient)!
+      
+      let rightMiddleAmbient = ambientTempString[ambientTempString.startIndex.advancedBy(25) ..< ambientTempString.endIndex.advancedBy(-6)]
+      breathReadings["rightMiddleAmbient"] = Double(rightMiddleAmbient)!
+      
+      let rightBottomAmbient = ambientTempString[ambientTempString.startIndex.advancedBy(30) ..< ambientTempString.endIndex.advancedBy(-1)]
+      breathReadings["rightBottomAmbient"] = Double(rightBottomAmbient)
+      
       
       NSLog("Temperatures:\(breathReadings)")
-    
+      
+      
       return breathReadings
       
     }else{
-     return breathReadings
+      return breathReadings
     }
     
   }
@@ -81,15 +105,15 @@ class Utility : NSObject{
     let dataString = String(data: data, encoding: NSUTF8StringEncoding)
     let lastChar = dataString!.characters.last!
     let firstChar = dataString!.characters.first!
-   //  NSLog("Data String: \(dataString)")
-   //  NSLog("First Char: \(firstChar)")
-    // NSLog("Last Char: \(lastChar)")
-    if(lastChar != "," && firstChar != "."){
+    NSLog("Data String: \(dataString)")
+     NSLog("First Char: \(firstChar)")
+     NSLog("Last Char: \(lastChar)")
+    if(lastChar != ","){
       breathData = breathData + dataString!
       return (false,breathData)
     }else{
       breathData = breathData + dataString!
-      NSLog("Breath Data: \(breathData)")
+      NSLog("2: \(breathData)")
       return (true,breathData)
 
     }
@@ -98,7 +122,7 @@ class Utility : NSObject{
   
   func getReadingDateTime(dataString:String ) -> Double {
     
-    var timeString = String(abs(Int(dataString[dataString.startIndex ..< dataString.endIndex.advancedBy(-36)])!))
+    var timeString = String(abs(Int(dataString[dataString.startIndex ..< dataString.endIndex.advancedBy(-70)])!))
     
     timeString = "0." + timeString
    // NSLog("Time:\(timeString)")
@@ -157,6 +181,15 @@ class Utility : NSObject{
                             "leftMiddle": readings["leftMiddle"]!,
                             "rightMiddle":readings["rightMiddle"]!,
                             "rightBottom":readings["rightBottom"]!,
+
+                            "leftTopAmbient":    readings["leftTopAmbient"]!,
+                            "centerTopAmbient":  readings["centerTopAmbient"]!,
+                            "rightTopAmbient":  readings["rightTopAmbient"]!,
+                            "leftBottomAmbient":  readings["leftBottomAmbient"]!,
+                            "leftMiddleAmbient":  readings["leftMiddleAmbient"]!,
+                            "rightMiddleAmbient":  readings["rightMiddleAmbient"]!,
+                            "rightBottomAmbient":  readings["rightBottomAmbient"]!,
+
                             "activeNadi":activeNadi,
                             "exhalationDirection": exhalationDirection,
                             "activeTatva": activeTatva

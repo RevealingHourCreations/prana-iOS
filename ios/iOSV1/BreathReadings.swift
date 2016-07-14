@@ -45,10 +45,11 @@ public class BreathReadings {
 
     if (activeSubjectKey != ""){
       let readings = Utility().convertHexToInt(data)
-     // NSLog("Readings count \(readings.count)")
       
+      // NSLog("Readings count \(readings.count)")
+      
+
       if (readings.count > 0) {
-        
         let (readingDateTime,leftNostrilReading, rightNostrilReading, activeNadi,exhalationDirection, activeTatva) = BreathReadings().processBreathReadings(readings,activeSubjectKey: activeSubjectKey)
         
             Utility().sendProcessedBreathDataReadings(readingDateTime,

@@ -153,6 +153,7 @@ class BreathBarChart extends React.Component {
      this.props.databaseRef.ref('/BreathReadings/' ).push({
            subjectKey          : this.props.store.activeSubject.key,
            readingDateTime     : breathData.readingDateTime,
+
            leftTop             : breathData.leftTop,
            centerTop           : breathData.centerTop,
            rightTop            : breathData.rightTop,
@@ -160,6 +161,15 @@ class BreathBarChart extends React.Component {
            leftMiddle          : breathData.leftMiddle,
            rightMiddle         : breathData.rightMiddle,
            rightBottom         : breathData.rightBottom,
+
+           leftTopAmbient      : breathData.leftTopAmbient,
+           centerTopAmbient    : breathData.centerTopAmbient,
+           rightTopAmbient     : breathData.rightTopAmbient,
+           leftBottomAmbient   : breathData.leftBottomAmbient,
+           leftMiddleAmbient   : breathData.leftMiddleAmbient,
+           rightMiddleAmbient  : breathData.rightMiddleAmbient,
+           rightBottomAmbient  : breathData.rightBottomAmbient,
+
            activeNadi          : breathData.activeNadi,
            exhalationDirection : breathData.exhalationDirection,
            activeTatva         : breathData.activeTatva
