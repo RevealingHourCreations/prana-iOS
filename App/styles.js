@@ -37,18 +37,18 @@ var styles = StyleSheet.create({
     borderBottomColor: '#eee',
     borderColor: 'transparent',
     borderWidth: 1,
-    justifyContent: 'center',
-    height: 44,
-    flexDirection: 'row'
+    justifyContent: 'flex-start',
+    height: 55,
+    flexDirection: 'row',
+    paddingTop: 40,
+    paddingBottom:20,
+    //paddingLeft: 10
   },
   navbarTitle: {
     color: '#444',
     fontSize: 16,
-    fontWeight: "500"
-  },
-  statusbar: {
-    backgroundColor: '#fff',
-    height: 22,
+    fontWeight: "500",
+    paddingLeft: 70,
   },
   center: {
     textAlign: 'center',
@@ -57,6 +57,7 @@ var styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     textAlign: 'center',
+    fontWeight: 'bold'
   },
   action: {
     backgroundColor: constants.actionColor,
@@ -99,8 +100,9 @@ var styles = StyleSheet.create({
   backButton: {
    color: '#444',
    fontSize: 18,
-   marginLeft: 10,
-   alignSelf: 'flex-start'
+   marginLeft: 5,
+   alignSelf: 'flex-start',
+   justifyContent: 'flex-start'
   },
 
   statusBarTitle: {
@@ -120,7 +122,7 @@ var styles = StyleSheet.create({
     flex: 1
   },
   baseText: {
-    fontFamily: 'Cochin',
+  //  fontFamily: 'Cochin',
   },
   titleText: {
     paddingLeft: 5,
@@ -128,23 +130,30 @@ var styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
     color: "#696969",
-    fontFamily: 'Cochin'
+  //  fontFamily: 'Cochin'
   },
   normalText: {
     paddingLeft: 5,
     fontSize: 14,
     justifyContent: 'center',
     color: "#696969",
-    fontFamily: 'Cochin'
+  //  fontFamily: 'Cochin'
   },
   nadiTitle: {
     color: '#1E90FF',
-    fontFamily: 'Cochin'
+    //fontFamily: 'Cochin'
   },
   notice: {
     fontSize: 10,
     color: 'grey'
-  }
+  },
+  subjectNotice: {
+    paddingLeft: 5,
+    fontSize: 14,
+    justifyContent: 'center',
+    color: "#696969",
+  //  fontFamily: 'Cochin'
+}
 })
 
 module.exports = styles

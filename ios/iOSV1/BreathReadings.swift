@@ -59,14 +59,14 @@ public class BreathReadings {
                                                       activeTatva: activeTatva,
                                                       appBridge: appBridge);
    
-        /*
         
-        Utility().sendLiveBreathDataReadings(readings,                                        
+        
+           Utility().sendLiveBreathDataReadings(readings,
                                              activeNadi: activeNadi,
                                              exhalationDirection: exhalationDirection,
                                              activeTatva: activeTatva,
                                              appBridge: appBridge);
-        */
+        
 
        }
     }
@@ -83,11 +83,11 @@ public class BreathReadings {
     let activeTatva = getActiveTatva(exhalationDirection)
     
     
-     DataBaseService().storeBreathReadings(readings,
+     /*DataBaseService().storeBreathReadings(readings,
                                              activeSubjectKey: activeSubjectKey,
                                              activeNadi: activeNadi,
                                              exhalationDirection: exhalationDirection,
-                                             activeTatva: activeTatva )
+                                             activeTatva: activeTatva )*/
  
     
    

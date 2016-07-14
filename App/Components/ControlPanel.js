@@ -1,3 +1,5 @@
+/*
+
 const AllSubjectsView = require('./AllSubjectsView');
 const AddSubjectView = require('./AddSubjectView');
 const styles = require('../styles.js')
@@ -12,16 +14,16 @@ var ControlPanel = React.createClass({
 
   navigatorRenderScene: function(route, navigator) {
     switch (route.id) {
-      case 'All Subjects':            
-        return (<AllSubjectsView navigator={navigator} 
-                                 closeDrawer={this.props.closeDrawer} 
-                                 store = {this.props.store} 
-                                 databaseRef = {this.props.databaseRef} 
+      case 'All Subjects':
+        return (<AllSubjectsView navigator={navigator}
+                                 closeDrawer={this.props.closeDrawer}
+                                 store = {this.props.store}
+                                 databaseRef = {this.props.databaseRef}
                                  title="Prana - All Subjects"/>);
       case 'New Subject':
-        return (<AddSubjectView navigator={navigator} 
-                               closeDrawer={this.props.closeDrawer}  
-                               store = {SubjectStore} 
+        return (<AddSubjectView navigator={navigator}
+                               closeDrawer={this.props.closeDrawer}
+                               store = {this.props.store}
                                databaseRef = {this.props.databaseRef}
                                title="Prana - Add New Subject" />);
     }
@@ -41,3 +43,5 @@ var ControlPanel = React.createClass({
 
 
 module.exports = ControlPanel;
+
+*/

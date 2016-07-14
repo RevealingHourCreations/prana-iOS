@@ -52,7 +52,7 @@ class DataBaseService: NSObject {
   }
   
   
-  func addNewSubject(readings:NSDictionary){
+  func addNewSubject(readings:NSDictionary,uid:String){
     
    let key = ref.child("Subjects").childByAutoId().key
     NSLog("key:\(key)")
@@ -73,7 +73,8 @@ class DataBaseService: NSObject {
                          "enoughSleep":  readings["enoughSleep"]!,
                          "meditateRegulary":  readings["meditateRegulary"]!,
                          "hypertension":  readings["hypertension"]!,
-                         "diabetes":  readings["diabetes"]!
+                         "diabetes":  readings["diabetes"]!,
+                         "uid":      uid
                         ]
     
     let childUpdates = ["/Subjects/\(key)": subjectData]

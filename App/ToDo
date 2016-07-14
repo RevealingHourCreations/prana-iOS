@@ -1,15 +1,22 @@
 TODO:
--3 fix mac air
+-3 fix mac air - Not able. Get new one
 -2 move everything to new React version - reverted as coz of compatiblity issue
 -1 integrate Mox-connect - moved o mobx only
 0. report generation - done. need to fix UI
-1. Add email/password system per user
-2. show only subjects as per user
-3. Generate report for active Subject
-4. Move all Firebase code to React
-5. Keep only BLE dependency on Native
+1. Add email/password system per user - done
+2. show only subjects as per user - done
+3. Generate report for active Subject - done
+4. Move all Firebase code to React - partially done
+5. Keep only BLE dependency on Native - next release
 6. Refactor and cleanup code
 7. remove unwanted node modules - done
 8. improve performance of the app
 9. test the integration
 10. Flexible UI for all iPhone devices.
+11. Change flow. 1. Login 2. Select Subject 3. Record Breath 4. Report => Done
+12. fix setState bug on device
+13. Fix login issue - done
+14. save brethdata on firebase from react-native - done
+15. parse BLE data.
+16. Enable offline
+17. When to start showing chart? When readings are getting stored?

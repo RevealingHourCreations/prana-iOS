@@ -9,7 +9,8 @@ var Utility = require('NativeModules');
 
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Drawer from 'react-native-drawer'
-import ControlPanel from './ControlPanel'
+
+const AllSubjectsView = require('./AllSubjectsView');
 
 var {
 
@@ -50,15 +51,6 @@ class BreathBarChart extends React.Component {
     }
 
 
-  closeDrawer = () => {
-    this._drawer.close()
-    this.setState({drawerOpen: false})
-  }
-  openDrawer = () => {
-    this._drawer.open()
-  };
-
-
   toggleRecordingAction = () => {
 
     if(this.state.startRecording == true && this.props.store.activeSubject.key ){
@@ -87,75 +79,100 @@ class BreathBarChart extends React.Component {
       var subjectKey = this.props.store.activeSubject.key
       React.NativeModules.Utility.setActiveSubject(subjectKey);
       this.realTimeBreathReading();
-
-  // Added for testing to simulate BLE data input remove
-     /*
-     this.setState({
-          leftNostrilData: [30],
-          rightNostrilData: [30],
-          activeNadi:  "",
-          activeTatva:  "",
-          exhalationDirection: "",
-          labelsData: ["i"],
-      })*/
-
    }
   }
 
 // Function to load live data from BLE
 
   realTimeBreathReading = () => {
-
-
-// Event Listener receving live breath data
-
-     subscription = NativeAppEventEmitter.addListener(
-                       'getBreathData',
-                         (breathData) => {
-
-                                //console.log("avgReading")
-                                //console.log(breathData.leftNostril)
-                                //console.log(breathData.rightNostril)
-
-                                leftNostrilData = this.state.leftNostrilData
-                                rightNostrilData = this.state.rightNostrilData
-                                labelsData = this.state.labelsData
-
-                               leftNostrilData.push(parseInt(breathData.leftNostril))
-                               rightNostrilData.push(parseInt(breathData.rightNostril))
-
-                               var d = new Date(0);
-                               d.setUTCSeconds(parseInt(breathData.readingDateTime),
-                                                        breathData.readingDateTime%1)
-
-                               //console.log("readingDateTime")
-                               //console.log(d)
-                               labelsData.push(String(d))
-
-                                // Give some time for chart loading
-                                sleepFor(100)
-
-                                this.setState({
-                                               leftNostrilData:     leftNostrilData ,
-                                               rightNostrilData:    rightNostrilData,
-                                               activeNadi:          breathData.activeNadi,
-                                               activeTatva:         breathData.activeTatva,
-                                               exhalationDirection: breathData.exhalationDirection,
-                                               labelsData:          labelsData,
-                                              })
- 
-
-         })
-
+     this.getChartData()
+     this.getBreathReadings()
 
   }
 
-  componentDidMount = () => {
-    console.log("Mounted BreathBarChart")
+  // Get processed breath readings and show them on Chart.
+
+  getChartData = () => {
+
+      subscription = NativeAppEventEmitter.addListener(
+                     'getBreathChartData',
+                       (breathData) => {
+
+                      leftNostrilData = this.state.leftNostrilData
+                      rightNostrilData = this.state.rightNostrilData
+                      labelsData = this.state.labelsData
+
+                     leftNostrilData.push(parseInt(breathData.leftNostril))
+                     rightNostrilData.push(parseInt(breathData.rightNostril))
+
+                     var d = new Date(0);
+                     d.setUTCSeconds(parseInt(breathData.readingDateTime),
+                                              breathData.readingDateTime%1)
+
+                     //console.log("readingDateTime")
+                     //console.log(d)
+                     labelsData.push(String(d))
+
+                      // Give some time for chart loading
+                      sleepFor(100)
+
+                       if(this.state.startRecording == true){
+
+                            this.setState({
+                                         leftNostrilData:     leftNostrilData ,
+                                         rightNostrilData:    rightNostrilData,
+                                         activeNadi:          breathData.activeNadi,
+                                         activeTatva:         breathData.activeTatva,
+                                         exhalationDirection: breathData.exhalationDirection,
+                                         labelsData:          labelsData,
+                                        })
+                        }
+
+       })
+  }
+
+
+// Get RAW breath readings and save them on Firebase
+
+  getBreathReadings = () => {
+
+    subscription = NativeAppEventEmitter.addListener(
+                   'getBreathReadings',
+                     (breathData) => {
+
+                       if(this.state.startRecording == true){
+                          this.saveRawBreathReadings(breathData)
+                        }
+
+                  })
+
+  }
+
+   saveRawBreathReadings = (breathData) => {
+
+     this.props.databaseRef.ref('/BreathReadings/' ).push({
+           subjectKey          : this.props.store.activeSubject.key,
+           readingDateTime     : breathData.readingDateTime,
+           leftTop             : breathData.leftTop,
+           centerTop           : breathData.centerTop,
+           rightTop            : breathData.rightTop,
+           leftBottom          : breathData.leftBottom,
+           leftMiddle          : breathData.leftMiddle,
+           rightMiddle         : breathData.rightMiddle,
+           rightBottom         : breathData.rightBottom,
+           activeNadi          : breathData.activeNadi,
+           exhalationDirection : breathData.exhalationDirection,
+           activeTatva         : breathData.activeTatva
+     })
+
+   }
+
+  _renderBreathChart = () => {
+     this.props.navigator.pop();
   }
 
    componentWillUnmount = () => {
-      subscription.remove();
+    //  subscription.remove();
    }
 
   render = () => {
@@ -213,57 +230,26 @@ class BreathBarChart extends React.Component {
           recordingText = "Stop Recording & show report."
       }else if(this.props.store.activeSubject.key){
          recordingText = "Start Recording."
-      }else if(!(this.props.store.activeSubject.key)){
-         recordingText = "Slide Right to Choose Subject."
       }
 
-    return (
 
+  return (
+    <View style={styles.container}>
 
-  <View style={styles.container}>
-      <Drawer
-        ref={(ref) => this._drawer = ref}
-        type="displace"
-        content={
-          <ControlPanel closeDrawer = {this.closeDrawer}
-                        databaseRef = {this.props.databaseRef}
-                        store = {this.props.store} />
-        }
-        acceptDoubleTap = {true}
-        styles={{main: {shadowColor: '#000000', shadowOpacity: 0.3, shadowRadius: 15}}}
-        onOpen={() => {
-          console.log('onopen')
-          this.setState({drawerOpen: true})
-        }}
-        onClose={() => {
-          console.log('onclose')
-          this.setState({drawerOpen: false})
-        }}
-        captureGestures = {false}
-        tweenDuration = {80}
-        panThreshold = {0.08}
-        disabled = {this.state.drawerDisabled}
-        openDrawerOffset={(viewport) => {
-          return 3
-        }}
-        closedDrawerOffset={() => 0}
-        panOpenMask={0.0}
-        negotiatePan
-        >
-
-
-           <View style={styles.statusBar}>
+           <View style={styles.navbar}>
                       <TouchableHighlight
                         underlayColor={'#FFFF'}
-                        onPress={this.openDrawer}>
+                        onPress={ this._renderBreathChart}>
+
                            <Text style={styles.backButton}>
                               <Image
                                 style={styles.icon}
-                                source={require('../Images/menu-bars.png')}/>
+                                source={require('../Images/back.png')}/>
                             </Text>
                       </TouchableHighlight>
-                      <Text style={styles.statusBarTitle}> Prana - Feel your Breath! </Text>
+                      <Text style={styles.navbarTitle}> Prana - Feel your Breath! </Text>
             </View>
+
 
 
             <BarChart config={config} style={styles.chart}/>
@@ -272,15 +258,15 @@ class BreathBarChart extends React.Component {
                   Active Nadi: <Text style={styles.nadiTitle}>  {this.state.activeNadi + '\n'} </Text>
               </Text>
 
-              <TouchableHighlight style={styles.button}
+              <TouchableHighlight style={styles.action}
                                   onPress={this.toggleRecordingAction}
                                   underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}> {recordingText}</Text>
+                <Text style={styles.actionText}> {recordingText}</Text>
               </TouchableHighlight>
 
-       </Drawer>
-   </View>
-    );
+
+       </View>
+  );
   }
 };
 

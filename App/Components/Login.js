@@ -44,7 +44,7 @@ var options = {
  class Login extends Component {
 
   constructor(props){
-    super(props);
+    super(props)
 
     this.state = {
       email: '',
@@ -56,9 +56,9 @@ var options = {
 
   render(){
     return (
-      <View style={styles.formContainer}>
-        <View style={styles.statusBar}>
-          <Text style={styles.statusBarTitle}> Prana Login. </Text>
+      <View style={styles.container}>
+      <View style={styles.navbar}>
+         <Text style={styles.navbarTitle}> Prana Login </Text>
        </View>
 
          <Form
@@ -66,8 +66,8 @@ var options = {
            type={User}
            options={options}/>
 
-         <TouchableHighlight style={styles.button} onPress={this.login} underlayColor='#99d9f4'>
-           <Text style={styles.buttonText}>Login</Text>
+         <TouchableHighlight style={styles.action} onPress={this.login} underlayColor='#99d9f4'>
+           <Text style={styles.actionText}>Login</Text>
          </TouchableHighlight>
 
         <Text style={styles.notice}>* Please contact admin for credentails.</Text>
@@ -103,37 +103,31 @@ var options = {
           }
 
         });
-     }
 
-  }
-
- authChanges = () => {
-
-   console.log("Inside onAuthStateChanged")
-
-     var firebaseRef = this.props.firebaseRef
-     var thisRef = this;
-
-     firebaseRef.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          var email = user.email
-          var uid = user.uid
-          console.log(uid)
-          thisRef.props.store.setCurrentUser(uid,email);
-          thisRef.props.navigator.push({id: 'BreathBarChart'});
-
-        } else {
-           thisRef.props.navigator.push({id: 'Login',});
-        }
-
-      });
-      // [END authstatelistener]
- }
-
-componentDidMount = () => {
-  this.authChanges();
+   }
 }
 
+ checkAuthChanges = () => {
+
+   var firebaseRef = this.props.firebaseRef
+   var thisRef = this;
+
+   firebaseRef.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        var email = user.email
+        var uid = user.uid
+        console.log(uid)
+        thisRef.props.store.setCurrentUser(uid,email);
+        thisRef.props.navigator.push({id: 'AllSubjectsView'});
+      }
+
+    });
+
+ }
+
+  componentDidMount = () => {
+      this.checkAuthChanges();
+  }
 
 }
 

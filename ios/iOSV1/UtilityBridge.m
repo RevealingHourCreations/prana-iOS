@@ -13,7 +13,7 @@
 
 @interface RCT_EXTERN_MODULE(Utility, NSObject)
 
-   RCT_EXTERN_METHOD(getSubjectData:(NSDictionary *)subjectData);
+   RCT_EXTERN_METHOD(getSubjectData:(NSDictionary *)subjectData uid:(NSString *));
    RCT_EXTERN_METHOD(setActiveSubject:(NSString *)subjectKey);
    RCT_EXTERN_METHOD(generateReport:(NSString *)subjectKey);
 

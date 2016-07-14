@@ -9,8 +9,11 @@
 
 
 var Login = require('./App/Components/Login');
+var Report = require('./App/Components/Report');
 var BreathBarChart = require('./App/Components/BreathBarChart');
-var PranaHome = require('./App/Components/PranaHome');
+var AllSubjectsView = require('./App/Components/AllSubjectsView');
+var AddSubjectView = require('./App/Components/AddSubjectView');
+
 import PranaStore from './App/Store/PranaStore'
 const styles = require('./App/styles.js')
 import EStyleSheet from 'react-native-extended-stylesheet';
@@ -42,10 +45,12 @@ class iOSV1 extends React.Component {
 
   constructor (props){
     super(props);
-    this.databaseRef = this.getRef();
-    this.firebaseRef = firebaseApp;
+    //this.databaseRef = this.getRef();
+    //this.firebaseRef = firebaseApp;
     this.state =  {
-        activeComponent: 'Login'
+        activeComponent: 'Login',
+        databaseRef: this.getRef(),
+        firebaseRef: firebaseApp
      }
   }
 
@@ -58,62 +63,35 @@ class iOSV1 extends React.Component {
     switch (route.id) {
       case 'Login':
          return (<Login navigator = {navigator}
-                                   databaseRef = {this.databaseRef}
-                                   firebaseRef = {this.firebaseRef}
+                                   firebaseRef = {this.state.firebaseRef}
                                    store = {PranaStore}
-                                   title = "Prana - Login!"/>);
+                                   title = "Prana - Login."/>);
+     case 'AllSubjectsView':
+       return (<AllSubjectsView navigator = {navigator}
+                                store = {PranaStore}
+                                databaseRef = {this.state.databaseRef}
+                                title = "Prana - Subjects."/>);
 
-     case 'BreathBarChart':
+    case 'NewSubject':
+      return (<AddSubjectView navigator = {navigator}
+                             store = {PranaStore}
+                             databaseRef = {this.state.databaseRef}
+                             title = "Prana - Add New Subject" />);
+
+    case 'BreathBarChart':
        return (<BreathBarChart navigator = {navigator}
-                               openDrawer = {this.openDrawer}
-                               closeDrawer = {this.closeDrawer}
-                               databaseRef = {this.databaseRef}
+                               databaseRef = {this.state.databaseRef}
                                store = {PranaStore}
                                title = "Prana - Feel your Breath!"/>);
-     case 'Report':
+    case 'Report':
        return (<Report navigator = {navigator}
-                       openDrawer = {this.openDrawer}
-                       closeDrawer = {this.closeDrawer}
                        store = {PranaStore}
-                       databaseRef = {this.databaseRef}
+                       databaseRef = {this.state.databaseRef}
                        title = "Prana Report - Know your Breath!" />);
 
     }
   };
 
-
-  authChanges = () => {
-
-    console.log("Inside onAuthStateChanged")
-
-      //var firebaseRef = this.props.firebaseRef
-      var thisRef = this;
-
-      firebaseApp.auth().onAuthStateChanged(function(user) {
-         if (user) {
-             console.log("User is logged in")
-           var email = user.email
-           var uid = user.uid
-
-          PranaStore.setCurrentUser(uid,email);
-           //thisRef.props.navigator.push({id: 'BreathBarChart'});
-           this.setState({activeComponent: 'BreathBarChart'})
-
-         } else {
-            //thisRef.props.navigator.push({id: 'Login',});
-            //this.setState({activeComponent: 'BreathBarChart'})
-            console.log("User has logged out")
-            this.setState({activeComponent: 'Login'})
-
-         }
-
-       });
-       // [END authstatelistener]
-  }
-
-  componentDidMount = () => {
-    this.authChanges();
-  }
 
   render() {
 
@@ -121,7 +99,7 @@ class iOSV1 extends React.Component {
 
      <Navigator
             style={styles.container}
-            initialRoute={{id: this.state.activeComponent }}
+            initialRoute={{id: "Login"}}
             renderScene={this.navRenderScene} />
 
    );

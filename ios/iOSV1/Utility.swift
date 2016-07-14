@@ -33,6 +33,14 @@ class Utility : NSObject{
       
       breathReadings["readingDateTime"] = getReadingDateTime(dataString)
       
+      // 60034.6133.7131.6742.0138.7743.2940.7126.9527.2929.2927.5327.6729.6530.03,
+      // 1  
+      // Time: 600
+      // Temp:     34.61 33.71 31.67 42.01 38.77 43.29 40.71
+      // Ambience: 26.95 27.29 29.29 27.53 27.67 29.65 30.03,
+      
+      
+      
       let tempString = dataString[dataString.startIndex.advancedBy(dataString.utf8.count - 36) ..< dataString.endIndex ]
       NSLog("Temp String:\(tempString)")
       
@@ -126,7 +134,7 @@ class Utility : NSObject{
     NSLog("Breath Data:\(breathData)")
     
     // Call event dispatcher
-    appBridge.eventDispatcher.sendAppEventWithName("getBreathData", body: breathData)
+    appBridge.eventDispatcher.sendAppEventWithName("getBreathChartData", body: breathData)
     
     
   }
@@ -140,6 +148,8 @@ class Utility : NSObject{
     
     
          let breathData = [
+
+                    "readingDateTime":    readings["readingDateTime"]!,          
                             "leftTop":    readings["leftTop"]!,
                             "centerTop":  readings["centerTop"]!,
                             "rightTop":   readings["rightTop"]!,
@@ -156,15 +166,15 @@ class Utility : NSObject{
     
    
         // Call event dispatcher
-        appBridge.eventDispatcher.sendAppEventWithName("getLiveBreathReadings", body: breathData)
+        appBridge.eventDispatcher.sendAppEventWithName("getBreathReadings", body: breathData)
     
     
     }
   
   
-  @objc func getSubjectData(subjectData:NSDictionary)  -> Void {
+  @objc func getSubjectData(subjectData:NSDictionary, uid:String)  -> Void {
     NSLog("User data:at IOS Side: \(subjectData)")
-    DataBaseService().addNewSubject(subjectData);
+    DataBaseService().addNewSubject(subjectData,uid: uid);
   }
 
   @objc func setActiveSubject(subjectKey:NSString)  -> Void {

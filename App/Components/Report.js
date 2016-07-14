@@ -3,10 +3,11 @@ const React = require('react-native');
 const ESStyles = require('../ESStyles.js')
 const styles = require('../styles.js')
 const constants = styles.constants;
-const { StyleSheet, 
-        Text, 
-        View, 
+const { StyleSheet,
+        Text,
+        View,
         TouchableHighlight,
+        Image,
         ScrollView} = React;
 
 import Communications from 'react-native-communications';
@@ -17,8 +18,8 @@ class Report extends React.Component {
 
 
   constructor(props){
-    super(props)        
-    this.getSubjects()    
+    super(props)
+    this.getSubjects()
 
     this.state = {
         subjectName: "",
@@ -49,13 +50,13 @@ class Report extends React.Component {
     databaseRef.ref("BreathReadings").orderByChild("readingDateTime")
                                      .startAt(startTime)
                                      .endAt(endTime)
-                                     .on('value', function(snapshot) {                                                         
-                                               snapshot.forEach((child) => {                                               
+                                     .on('value', function(snapshot) {
+                                               snapshot.forEach((child) => {
                                                 if(subjectKey == child.val().subjectKey){
                                                    breathReadings.push({
                                                       activeNadi: child.val().activeNadi,
                                                       activeTatva: child.val().activeTatva,
-                                                      exhalationDirection: child.val().exhalationDirection,                                                      
+                                                      exhalationDirection: child.val().exhalationDirection,
                                                       leftTop: child.val().leftTop,
                                                       centerTop: child.val().centerTop,
                                                       rightTop: child.val().rightTop,
@@ -67,10 +68,10 @@ class Report extends React.Component {
                                                       subjectKey: child.val().subjectKey,
                                                       key: child.key
                                                    });
-                                                  }  
+                                                  }
                                               });
-                                            thisRef.generateReport(breathReadings,startTime,endTime) 
-                                   
+                                            thisRef.generateReport(breathReadings,startTime,endTime)
+
                          });
    }
 
@@ -80,12 +81,12 @@ class Report extends React.Component {
       reportStartTime = reportTimeData[0]
       reportEndTime = reportTimeData[1]
       reportDuration = reportTimeData[2]
-      
+
       reportData = this.processBreathReadings(breathReadings)
       leftNostrilCount = reportData[0]
       rightNostrilCount = reportData[1]
       activeNadi = reportData[2]
-       
+
       this.setState({
           subjectName: this.props.store.activeSubject.fullName,
           reportStartTime: reportStartTime,
@@ -98,15 +99,15 @@ class Report extends React.Component {
   }
 
   getReportDuration(startTime,endTime){
-     var reportStartTime = new Date(0); 
+     var reportStartTime = new Date(0);
      reportStartTime.setUTCSeconds(startTime);
 
-     var reportEndTime = new Date(0); 
+     var reportEndTime = new Date(0);
      reportEndTime.setUTCSeconds(endTime);
 
      var duration = Math.abs(reportEndTime.getTime() - reportStartTime.getTime());
      var diffMins = Math.ceil(duration / (1000 * 60));
-     
+
      return [reportStartTime,reportEndTime,diffMins]
   }
 
@@ -116,7 +117,7 @@ class Report extends React.Component {
    var activeNadi = ""
 
    for(var i = 0; i< breathReadings.length; i++){
-     
+
      if (breathReadings[i].activeNadi == "Ida"){
         leftNostrilCount += 1
      }else if(breathReadings[i].activeNadi == "Pingala")
@@ -148,55 +149,59 @@ class Report extends React.Component {
   }
 
   _renderBreathChart = () => {
-     this.props.navigator.pop(); 
+     this.props.navigator.pop();
   }
 
-  render = () => {   
+  render = () => {
     return (
-      <View style={styles.container}>               
-  
-          <View style={styles.statusBar}>
-              <TouchableHighlight underlayColor={'#FFFF'}  onPress={ this._renderBreathChart}>
-                    <Text style={styles.backButton}> &lt; </Text>
-              </TouchableHighlight>              
-                  <Text style={styles.statusBarTitle}>Report of {this.state.subjectName} </Text>
-        </View>      
-         
- 
+      <View style={styles.container}>
+
+          <View style={styles.navbar}>
+              <TouchableHighlight underlayColor={'#FFFF'}  onPress = { this._renderBreathChart}>
+                    <Text style={styles.backButton}>
+                        <Image
+                          style={styles.icon}
+                          source={require('../Images/back.png')}/>
+                    </Text>
+              </TouchableHighlight>
+                  <Text style={styles.navbarTitle}>Report of {this.state.subjectName} </Text>
+        </View>
+
+
          <ScrollView
             automaticallyAdjustContentInsets={true}
             rejectResponderTermination={false}
             style={ESStyles.scrollView}>
 
-              <Text style={styles.titleText}> From: 
+              <Text style={styles.titleText}> From:
                   <Text style={styles.normalText}>{this.state.reportStartTime.toString()}</Text>
-              </Text>    
+              </Text>
 
-              <Text style={styles.titleText}> To: 
+              <Text style={styles.titleText}> To:
                    <Text style={styles.normalText}>{this.state.reportEndTime.toString()}</Text>
-              </Text> 
+              </Text>
 
-              <Text style={styles.titleText}> Duration: 
+              <Text style={styles.titleText}> Duration:
                   <Text style={styles.normalText}>{this.state.reportDuration.toString()} mins. </Text>
-              </Text> 
+              </Text>
 
-              <Text style={styles.titleText}> Left Nostril Count: 
+              <Text style={styles.titleText}> Left Nostril Count:
                   <Text style={styles.normalText}>{this.state.leftNostrilCount.toString()}</Text>
-              </Text>     
+              </Text>
 
               <Text style={styles.titleText}> Right Nostril Count:
                   <Text style={styles.normalText}>{this.state.rightNostrilCount.toString()}</Text>
-               </Text> 
+               </Text>
 
-              <Text style={styles.titleText}> Active Nadi:  
+              <Text style={styles.titleText}> Active Nadi:
                      <Text style={styles.normalText}> {this.state.activeNadi.toString()} </Text>
               </Text>
-                            
-              <TouchableHighlight style={styles.button} onPress={this.emailReport} underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}>Email Report </Text>
+
+              <TouchableHighlight style={styles.action} onPress={this.emailReport} underlayColor='#99d9f4'>
+                <Text style={styles.actionText}>Email Report </Text>
               </TouchableHighlight>
 
-        </ScrollView>   
+        </ScrollView>
 
       </View>
     );

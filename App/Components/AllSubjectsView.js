@@ -9,7 +9,7 @@ const styles = require('../styles.js')
 const ESStyles = require('../ESStyles.js')
 const StatusBar = require('./StatusBar');
 const constants = styles.constants;
-import {observer} from 'mobx-react/native'
+
 
 
 var {
@@ -19,7 +19,6 @@ var {
   Text,
   ListView,
   NativeModules,
-  NativeAppEventEmitter,
   AlertIOS,
   ActivityIndicatorIOS,
   Component,
@@ -34,61 +33,43 @@ class AllSubjectsView extends Component{
 
   constructor(props) {
     super(props);
-    databaseRef = this.props.databaseRef
     var ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2, });
     this.state = {
       dataSource:  ds,
-      subjectsRef: databaseRef.ref("Subjects"),
       activeSubject: "",
       activeSwitch: false,
-      activityInprogress: true,
+      activityInprogress: true
     }
-
   }
 
 
  listenForSubjects = () => {
       console.log('fetching subjects')
 
-      var subjects = [];
+
       var thisRef = this;
 
-// All subjects
+    // Subjects of Current user.
 
-/*
-    	this.state.subjectsRef.on('value', function(snap) {
-			      snap.forEach((child) => {
-			        subjects.push({
-			          subjectName: child.val().firstName + " " + child.val().lastName,
-			          _key: child.key
-			        });
-			      });
-        thisRef.loadSubjects(subjects)
-    });
-*/
+   var uid = this.props.store.currentUser.uid
+   var subjectsRef = this.props.databaseRef.ref("Subjects")
 
-
-// Subjects of Current user.
-
-     uid = this.props.store.currentUser.uid
-     console.log(uid)
-    this.state.subjectsRef.orderByChild('uid').equalTo(uid).on('value', function( snapshot ){
+    subjectsRef.orderByChild('uid').equalTo(uid).on('value', function( snapshot ){
+          var subjects = [];
           snapshot.forEach((child) => {
             subjects.push({
               subjectName: child.val().firstName + " " + child.val().lastName,
               _key: child.key
             });
           });
-        thisRef.loadSubjects(subjects)
+
+       thisRef.loadSubjects(subjects)
     });
 
 
 }
 
 loadSubjects = (subjects) => {
-  //console.log('loading subjcts')
-  console.log(subjects)
-
    this.setState({
       dataSource: this.state.dataSource.cloneWithRows(subjects),
       activityInprogress: false
@@ -99,8 +80,9 @@ loadSubjects = (subjects) => {
     this.listenForSubjects();
   }
 
+
   _handlePress = () =>  {
-        this.props.navigator.push({id: 'New Subject',});
+        this.props.navigator.push({id: 'NewSubject',});
     }
 
  renderSubject = (item) =>  {
@@ -108,13 +90,13 @@ loadSubjects = (subjects) => {
       const onPress = () => {
         ReactNative.NativeModules.Utility.setActiveSubject(item._key);
         this.props.store.setActiveSubject( item.subjectName , item._key)
-        this.setState({activeSubject: item._key});
+        this.props.navigator.push({id: 'BreathBarChart',});
       };
 
       const onSwitchChange = () => {
         ReactNative.NativeModules.Utility.setActiveSubject(item._key);
-        this.props.store.setActiveSubject( item.subjectName  , item._key)
-        this.setState({activeSubject: item._key});
+        this.props.store.setActiveSubject( item.subjectName , item._key)
+        this.props.navigator.push({id: 'BreathBarChart',});
        };
 
 
@@ -123,12 +105,11 @@ loadSubjects = (subjects) => {
         <ListItem item={item}
                   onPress={onPress}
                   onSwitchChange={onSwitchChange}
-                  activeSubject={this.state.activeSubject} />
+                  activeSubject={this.props.store.activeSubject.key} />
     );
   }
 
  render = () => {
-
 
    var activityIndicator  = this.state.activityInprogress ? <ActivityIndicatorIOS
                                                                   style={ESStyles.activityIndicator}
@@ -139,18 +120,12 @@ loadSubjects = (subjects) => {
     return (
 
        <View style={styles.container}>
-          <View style={styles.statusBar}>
-                  <TouchableHighlight
-                    underlayColor={'#FFFF'}
-                    onPress={this.props.closeDrawer}>
-                       <Text style={styles.backButton}>
-                       <Image
-                            style={styles.icon}
-                            source={require('../Images/menu-bars.png')}/>
-                        </Text>
 
-                  </TouchableHighlight>
-                  <Text style={styles.statusBarTitle}> Prana - Subjects. </Text>
+          <View style={styles.navbar}>
+            <Text style={styles.backButton}>
+
+            </Text>
+                <Text style={styles.navbarTitle}> Prana - Subjects. </Text>
           </View>
 
               {activityIndicator}
@@ -167,7 +142,6 @@ loadSubjects = (subjects) => {
                        <Text style={styles.actionText}>Add New Subject</Text>
                   </TouchableHighlight>
              </View>
-
 
         </View>
     );

@@ -7,7 +7,8 @@ import React, {
   Text,
   TouchableHighlight,
   View,
-  NativeModules
+  NativeModules,
+  Image
 } from 'react-native'
 
 const styles = require('../styles.js')
@@ -35,8 +36,8 @@ var Subject = t.struct({
   smoking: t.Boolean,
   drinking: t.Boolean,
   enoughSleep: t.Boolean,
-  avgWakeupTIme: t.Number,
-  avgSleepingTIme: t.Number,
+  avgWakeupTime: t.Number,
+  avgSleepingTime: t.Number,
   meditateRegulary: t.Boolean,
   eatNonveg: t.Boolean,
   regularMeals: t.Boolean,
@@ -53,13 +54,36 @@ var AddSubjectView = React.createClass({
 
   onPress: function () {
     // call getValue() to get the values of the form
-    var value = this.refs.form.getValue();
-    console.log(value)
-    if (value) { // if validation fails, value will be null
-      React.NativeModules.Utility.getSubjectData(value);
+    var subjectData = this.refs.form.getValue();
+    var uid = this.props.store.currentUser.uid
+    console.log(subjectData)
+    console.log(uid)
+    if (subjectData) {
+      this.addSubjectToDatabase(subjectData,uid)
       this.props.navigator.pop();
     }
+  },
 
+  addSubjectToDatabase: function(subjectData,uid) {
+    firebase.database().ref('/Subjects/' ).push({
+
+    firstName        : subjectData['firstName'],
+    lastName         : subjectData['lastName'],
+    age              : subjectData['age'],
+    dailyExercise    : subjectData['dailyExercise'],
+    sedataryLifeStyle: subjectData['sedataryLifeStyle'],
+    regularMeals     : subjectData['regularMeals'],
+    drinking         : subjectData['drinking'],
+    smoking          : subjectData['smoking'],
+    avgSleepingTime  : subjectData['avgSleepingTime'],
+    avgWakeupTime    : subjectData['avgWakeupTime'],
+    eatNonveg        : subjectData['eatNonveg'],
+    enoughSleep      : subjectData['enoughSleep'],
+    meditateRegulary : subjectData['meditateRegulary'],
+    hypertension     : subjectData['hypertension'],
+    diabetes         : subjectData['diabetes'],
+    uid              : uid
+    });
   },
 
   goBack: function () {
@@ -78,14 +102,20 @@ var AddSubjectView = React.createClass({
 
       <View style={styles.formContainer}>
 
-         <View style={styles.statusBar}>
+         <View style={styles.navbar}>
                   <TouchableHighlight
                     underlayColor={'#FFFF'}
                     onPress={this.goBack}>
-                       <Text style={styles.backButton}>  &lt; </Text>
+
+                       <Text style={styles.backButton}>
+                           <Image
+                             style={styles.icon}
+                             source={require('../Images/back.png')}/>
+                       </Text>
+                      
 
                   </TouchableHighlight>
-                  <Text style={styles.statusBarTitle}> Add New Subject </Text>
+                  <Text style={styles.navbarTitle}> Add New Subject </Text>
         </View>
 
 
@@ -99,8 +129,8 @@ var AddSubjectView = React.createClass({
                type={Subject}
                options={options}/>
 
-              <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}>Save</Text>
+              <TouchableHighlight style={styles.action} onPress={this.onPress} underlayColor='#99d9f4'>
+                <Text style={styles.actionText}>Save</Text>
               </TouchableHighlight>
 
         </ScrollView>
